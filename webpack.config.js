@@ -2,6 +2,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 
 module.exports = {
+  mode: 'development',
+  devtool: 'inline-source-map',
   entry: './src/index.js',
   output: {
     filename: 'main.js',
@@ -10,4 +12,12 @@ module.exports = {
   plugins: [new HtmlWebpackPlugin({
     template: './src/index.html',
   })],
+  module: {
+    rules: [
+      {
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader"],
+      },
+    ],
+  },
 };
