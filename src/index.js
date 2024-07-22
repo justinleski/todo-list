@@ -1,11 +1,10 @@
-import { Project, loadProj, createProj } from "./modules/projects.js";
+import { loadProj, createProj } from "./modules/projects.js";
 import { makeModal, updateProjList } from "./modules/domManipulator.js";
 
 // Store all projects in array
 var projects = [];
-const projName = document.querySelector("#projName");
-const projList = document.querySelector("#projList");
-const currTasks = document.querySelector("#tasks");
+
+
 
 
 // Create default project for user

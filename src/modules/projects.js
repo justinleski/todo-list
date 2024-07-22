@@ -16,4 +16,4 @@ const createProj = (name, notes, tasks, list) => {
     return list;
 }
 
-export { Project, loadProj, createProj };
+export { loadProj, createProj };
