@@ -6,9 +6,42 @@
     <title>To Do</title>
 </head>
 <body>
+
+    <!--Overlay not seen by user until modal active-->
+    <div id="overlay" class=""></div>
+    <div id="modal" class="">
+        <button id="cancelBtn">&times;</button>
+        <form id="taskForm">
+            <fieldset>
+                <label for="task-name">Title:</label>
+                <input type="text" id="task-name" name="task-name" required>
+
+                <label for="task-desc">Description:</label>
+                <input type="text" id="task-desc" name="task-desc" required>
+            </fieldset>
+            <fieldset>
+                <label for="task-due">Due Date:</label>
+                <input type="date" id="task-due" name="task-due">
+            </fieldset>
+            <fieldset>
+                <label for="task-priority">Priority:</label>
+                <select id="task-priority" name="task-priority">
+                    <option value="none">None</option>
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+                </select>
+
+                <label for="task-comp">Completed:</label>
+                <input type="checkbox" id="task-comp" name="task-comp">
+            </fieldset>
+            <button type="submit">Add Task</button>
+        </form>
+    </div>
+
     <div id="wrapper">
     <nav>
-        <h2>My Projects</h2>
+        <h2 class="heading">My Projects</h2>
         <div id="projList"> 
             <!--Populated with user project names-->
         </div>
@@ -16,7 +49,7 @@
     </nav>
     <main>
         <header>
-            <h1 id="projName">Project Name</h1>
+            <h1 id="projName" class="heading">Project Name</h1>
             <!--Maybe burger menu on side?-->
         </header>
 
@@ -25,7 +58,10 @@
         </section>
 
         <!--Perhaps add button here to create more tasks? or do it with JS on each new project load probaby-->
+        
     </main>
+    <button class="newTask" id="mainTaskBtn">&plus;</button>
+
     </div>
 </body>
 </html>

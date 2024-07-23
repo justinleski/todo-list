@@ -1,19 +1,28 @@
 import "../style.css";
 
 const makeModal = () => {
+    const modal = document.querySelector("#modal");
+    modal.classList.add("active");
+}
 
-    const p = document.createElement("p");
-    p.classList.add("test");
-    p.textContent = "Hello";
-    return p;
+const remModal = () => {
+    const modal = document.querySelector("#modal");
+    modal.classList.remove("active");
+}
 
+const addOverlay = () => {
+    const overlay = document.querySelector("#overlay");
+    overlay.classList.add("active");
+}
+
+const remOverlay = () => {
+    const overlay = document.querySelector("#overlay");
+    overlay.classList.remove("active");
 }
 
 const updateProjList = (projects) => {
     var list = document.querySelector("#projList");
     clearContent(list);
-
-    console.log(projects);
 
     // `projects` is an array containing the list of project objects
     projects.forEach((project) => {
@@ -69,6 +78,15 @@ const displayProj = (project) => {
 
 
     });
+}
+
+const displayTask = (task) => {
+
+    // Create a task card
+    const card = document.createElement("div");
+    card.classList.add("taskCard");
+
+    
 
 }
 
@@ -76,4 +94,4 @@ function clearContent(content) {
     content.replaceChildren();
 }
 
-export { makeModal, updateProjList };
+export { makeModal, remModal, updateProjList, displayProj, addOverlay, remOverlay };
