@@ -14,6 +14,9 @@ const makeTaskModal = () => {
     const modal = document.querySelector("#modal");
     clearContent(modal);
 
+    // cancel button
+    modal.appendChild( createCancel());
+
     // make form
     var form = document.createElement("form");
     form.setAttribute("id", "taskForm");
@@ -77,6 +80,7 @@ const makeTaskModal = () => {
     // form submit button
     var formSubmit = document.createElement("button");
     formSubmit.setAttribute("type", "submit");
+    formSubmit.id = "taskAddBtn";
     formSubmit.innerText = "Add Task";
     form.appendChild(formSubmit);
 
@@ -88,6 +92,28 @@ const makeTaskModal = () => {
 const makeProjModal = () => {
     const modal = document.querySelector("#modal");
     clearContent(modal);
+    modal.appendChild(createCancel());
+
+    var nameField = document.createElement("input");
+    nameField.setAttribute("type", "text");
+    nameField.id = "projNameField";
+    modal.appendChild(nameField);
+    
+    var button = document.createElement("button");
+    button.innerText = "New Project";
+    button.id = "makeProjBtn";
+    modal.appendChild(button);
+}
+
+const createCancel = () => {
+    // Cancel task creation in modal
+    var cancelBtn = document.createElement("button");
+    cancelBtn.innerHTML = "&times;";
+    cancelBtn.addEventListener("click", () => {
+        remOverlay();
+        hideModal();
+    });
+    return cancelBtn;
 }
 
 const addOverlay = () => {
@@ -106,8 +132,11 @@ const updateProjList = (projects) => {
 
     // `projects` is an array containing the list of project objects
     projects.forEach((project) => {
-        var name = document.createElement("h3")
-        name.textContent = project.name;;
+        var name = document.createElement("h3");
+        name.textContent = project.name;
+        name.addEventListener("click", () => {
+            displayProj(project); // TODO TESTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+        });
         list.appendChild(name);
     });
 
@@ -118,7 +147,10 @@ const displayProj = (project) => {
     // Select the project name and tasks to display for each individual proj
     var projName = document.querySelector("#projName");
     const currTasks = document.querySelector("#tasks");
+    //console.log(project.name.value);
     var tasks = project.tasks; // array of task objects
+
+    
 
     // Update values based on the current selection 
     projName.innerText = project.name;
@@ -208,4 +240,4 @@ function clearContent(content) {
     content.replaceChildren();
 }
 
-export { activateModal, hideModal, updateProjList, displayProj, addOverlay, remOverlay, displayTask, makeTaskModal };
+export { activateModal, hideModal, updateProjList, displayProj, addOverlay, remOverlay, displayTask, makeTaskModal, makeProjModal };
