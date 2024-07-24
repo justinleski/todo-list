@@ -10,14 +10,9 @@ const hideModal = () => {
     modal.classList.remove("active");
 }
 
-const makeTaskModal = (modal) => {
+const makeTaskModal = () => {
+    const modal = document.querySelector("#modal");
     clearContent(modal);
-
-    // exit btn
-    // var cancelBtn = document.createElement("button");
-    // cancelBtn.innerHTML = "&plus;";
-    // cancelBtn.setAttribute("id", "cancelBtn");
-    // modal.appendChild(cancelBtn);
 
     // make form
     var form = document.createElement("form");
@@ -57,6 +52,7 @@ const makeTaskModal = (modal) => {
     var priorityLabel = document.createElement("label");
     priorityLabel.innerText = "Priority";
     priorityLabel.setAttribute("for", "task-priority");
+    priorityField.appendChild(priorityLabel);
 
     // Priority radio buttons
     var radioLow = document.createElement("input");
@@ -68,11 +64,30 @@ const makeTaskModal = (modal) => {
     var radioHigh = document.createElement("input");
     radioHigh.type = "radio";
     radioHigh.setAttribute("name", "priority-buttons");
+    priorityField.appendChild(radioLow);
+    priorityField.appendChild(radioMedium);
+    priorityField.appendChild(radioHigh);
 
     var taskComp = document.createElement("input");
     taskComp.setAttribute("type", "checkbox");
     taskComp.setAttribute("id", "task-comp");
+    priorityField.appendChild(taskComp);
+    form.appendChild(priorityField);
 
+    // form submit button
+    var formSubmit = document.createElement("button");
+    formSubmit.setAttribute("type", "submit");
+    formSubmit.innerText = "Add Task";
+    form.appendChild(formSubmit);
+
+    // Finally add form to modal
+    modal.appendChild(form);
+
+}
+
+const makeProjModal = () => {
+    const modal = document.querySelector("#modal");
+    clearContent(modal);
 }
 
 const addOverlay = () => {
@@ -193,4 +208,4 @@ function clearContent(content) {
     content.replaceChildren();
 }
 
-export { activateModal, hideModal, updateProjList, displayProj, addOverlay, remOverlay, displayTask };
+export { activateModal, hideModal, updateProjList, displayProj, addOverlay, remOverlay, displayTask, makeTaskModal };

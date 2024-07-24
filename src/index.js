@@ -1,5 +1,5 @@
 import { loadProj, createProj, addTaskToProj } from "./modules/projects.js";
-import { hideModal, updateProjList, displayProj, addOverlay, remOverlay, displayTask, activateModal } from "./modules/domManipulator.js";
+import { hideModal, updateProjList, displayProj, addOverlay, remOverlay, displayTask, activateModal, makeTaskModal } from "./modules/domManipulator.js";
 import { makeTask } from "./modules/task.js";
 
 // Store all projects in array
@@ -21,7 +21,9 @@ updateProjList(projects);
 var newTask = document.querySelector("#mainTaskBtn");
 newTask.addEventListener("click", () => {
     addOverlay();
+    makeTaskModal();
     activateModal();
+    
 });
 
 // For project dropdown on the side make button load corresponding project
