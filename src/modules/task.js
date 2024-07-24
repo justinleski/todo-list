@@ -18,7 +18,7 @@ const makeTask = () => {
     var taskComp = document.querySelector("#task-comp");
 
     // Make new task and return obj
-    task = new Task(taskName, taskDesc, taskDue, taskComp, taskPriority);
+    var task = new Task(taskName, taskDesc, taskDue, taskComp, taskPriority);
     return task;
 
 }

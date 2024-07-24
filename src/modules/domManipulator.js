@@ -1,13 +1,78 @@
 import "../style.css";
 
-const makeModal = () => {
+const activateModal = () => {
     const modal = document.querySelector("#modal");
     modal.classList.add("active");
 }
 
-const remModal = () => {
+const hideModal = () => {
     const modal = document.querySelector("#modal");
     modal.classList.remove("active");
+}
+
+const makeTaskModal = (modal) => {
+    clearContent(modal);
+
+    // exit btn
+    // var cancelBtn = document.createElement("button");
+    // cancelBtn.innerHTML = "&plus;";
+    // cancelBtn.setAttribute("id", "cancelBtn");
+    // modal.appendChild(cancelBtn);
+
+    // make form
+    var form = document.createElement("form");
+    form.setAttribute("id", "taskForm");
+
+    var textField = document.createElement("fieldset");
+    var nameLabel = document.createElement("label");
+    nameLabel.innerText = "Name:";
+    nameLabel.setAttribute("for", "task-name");
+    var nameInput = document.createElement("input");
+    nameInput.setAttribute("id", "task-name");
+    nameInput.required = true;
+    var descLabel = document.createElement("label");
+    descLabel.innerText = "Description";
+    descLabel.setAttribute("for", "task-desc");
+    var descInput = document.createElement("input");
+    descInput.setAttribute("id", "task-desc");
+    descInput.required = true;
+    textField.appendChild(nameLabel);
+    textField.appendChild(nameInput);
+    textField.appendChild(descLabel);
+    textField.appendChild(descInput);
+    form.appendChild(textField);
+
+    var dateField = document.createElement("fieldset");
+    var dateLabel = document.createElement("label");
+    dateLabel.innerText = "Due Date:";
+    dateLabel.setAttribute("for", "task-due");
+    var dateInput = document.createElement("input");
+    dateInput.setAttribute("type", "date");
+    dateInput.setAttribute("id", "task-due");
+    dateField.appendChild(dateLabel);
+    dateField.appendChild(dateInput);
+    form.appendChild(dateField);
+
+    var priorityField = document.createElement("fieldset");
+    var priorityLabel = document.createElement("label");
+    priorityLabel.innerText = "Priority";
+    priorityLabel.setAttribute("for", "task-priority");
+
+    // Priority radio buttons
+    var radioLow = document.createElement("input");
+    radioLow.type = "radio";
+    radioLow.setAttribute("name", "priority-buttons");
+    var radioMedium = document.createElement("input");
+    radioMedium.type = "radio";
+    radioMedium.setAttribute("name", "priority-buttons");
+    var radioHigh = document.createElement("input");
+    radioHigh.type = "radio";
+    radioHigh.setAttribute("name", "priority-buttons");
+
+    var taskComp = document.createElement("input");
+    taskComp.setAttribute("type", "checkbox");
+    taskComp.setAttribute("id", "task-comp");
+
 }
 
 const addOverlay = () => {
@@ -32,6 +97,7 @@ const updateProjList = (projects) => {
     });
 
 }
+
 
 const displayProj = (project) => {
     // Select the project name and tasks to display for each individual proj
@@ -86,12 +152,45 @@ const displayTask = (task) => {
     const card = document.createElement("div");
     card.classList.add("taskCard");
 
-    
+    // create text info
+    const title = document.createElement("h2");
+    title.innerText = task.name.value;
+    const desc = document.createElement("p");
+    desc.innerText = task.desc.value;
+    const textInfo = document.createElement("div");
+    //textInfo.classList.add(""); // ADD CLASS LIST TO MAKE COLUMN
+    textInfo.appendChild(title);
+    textInfo.appendChild(desc);
+    card.appendChild(textInfo);
 
+    // actions buttons
+    const read = document.createElement("input");
+    read.setAttribute("type", "checkbox");
+    read.checked = task.completed; // MAYBE ADD EVENT LISTENER TO BUTTON??
+
+    const deleteBtn = document.createElement("button");
+
+    const btnGroup = document.createElement("div");
+    btnGroup.appendChild(read);
+    btnGroup.appendChild(deleteBtn);
+    card.appendChild(btnGroup);
+
+    // Add to DOM
+    var taskList = document.querySelector("#tasks");
+    taskList.appendChild(card); // We can just do this, we need to store the DOM elements somewhere per project basis unless we remake each task each time
+
+}
+
+function addStrike(content) {
+    content.classList.add("strikeOut");
+}
+
+function remStrike(content) {
+    content.classList.add("strikeOut");
 }
 
 function clearContent(content) {
     content.replaceChildren();
 }
 
-export { makeModal, remModal, updateProjList, displayProj, addOverlay, remOverlay };
+export { activateModal, hideModal, updateProjList, displayProj, addOverlay, remOverlay, displayTask };

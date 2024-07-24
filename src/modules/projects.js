@@ -1,19 +1,24 @@
 class Project {
-    constructor(name, notes, tasks) {
+    constructor(name, notes, tasks = []) {
         this.name = name;
         this.notes = notes;
         this.tasks = tasks;
     }
+
+
 }
 
 const loadProj = () => {
     
 }
 
-const createProj = (name, notes, tasks, list) => {
+const createProj = (name, notes, tasks) => {
     var proj = new Project(name, notes, tasks);
-    list.push(proj);
-    return list;
+    return proj;
+}
+const addTaskToProj = (task, proj) => {
+    proj.tasks.push(task);
+    return proj;
 }
 
-export { loadProj, createProj };
+export { loadProj, createProj, addTaskToProj };

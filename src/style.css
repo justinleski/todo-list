@@ -146,7 +146,11 @@ header {
 }
 
 .taskCard {
-    display: grid;
-    grid-template-columns: 3fr 1fr;
-    grid-template-rows: 1fr 1.5fr;
+    display: flex;
+    max-width: 1280px;
+    justify-content: space-between;
+}
+
+.strikeOut {
+    text-decoration: line-through;
 }
