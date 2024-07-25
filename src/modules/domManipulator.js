@@ -1,4 +1,5 @@
 import "../style.css";
+import { removeProj } from "./projects";
 
 const activateModal = () => {
     const modal = document.querySelector("#modal");
@@ -132,13 +133,23 @@ const updateProjList = (projects) => {
 
     // `projects` is an array containing the list of project objects
     projects.forEach((project, index) => {
+        const projSpan = document.createElement("div");
+        projSpan.classList.add("projSpan");
         var name = document.createElement("h3");
         name.textContent = project.name;
         name.setAttribute("data-project-number", index); // give unique data attribute to header based on index
-        // name.addEventListener("click", () => {
-        //     displayProj(project); 
-        // });
-        list.appendChild(name);
+        const deleteBtn = document.createElement("button");
+        deleteBtn.innerHTML = "&times;";
+        deleteBtn.addEventListener("click", () => {
+            deleteBtn.parentElement.remove();
+            removeProj(index, projects);
+            // TODO - ADD DELETE PROJECTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+        });
+
+        projSpan.appendChild(name);
+        projSpan.appendChild(deleteBtn);
+
+        list.appendChild(projSpan);
     });
 }
 
@@ -147,49 +158,15 @@ const displayProj = (project) => {
     // Select the project name and tasks to display for each individual proj
     var projName = document.querySelector("#projName");
     const currTasks = document.querySelector("#tasks");
-    //console.log(project.name.value);
     var tasks = project.tasks; // array of task objects
-
-    
 
     // Update values based on the current selection 
     projName.innerText = project.name;
-    //projName.setAttribute("data-project-number", );
     
     // Clear old tasks and display new ones
     clearContent(currTasks);
     tasks.forEach((task) => {
         displayTask(task);
-        // Create display information for task
-        // const name =document.createElement("h5");
-        // name.textContent = task.name;
-
-        // const desc = document.createElement("p");
-        // p.textContent = task.desc;
-
-        // const due = document.createElement("h6");
-        // due.textContent = task.due;
-
-        // const completed = document.createElement("input");
-        // completed.setAttribute("type", "checkbox");
-
-        // const remBtn = document.createElement("button");
-
-
-        // // Create card and add all items to it
-        // const card = document.createElement("div");
-        // const info = document.createElement("div");
-        // const buttons = document.createElement("div");
-        // info.classList.add("info");
-        // buttons.classList.add("");
-
-        // info.appendChild(name);
-        // info.appendChild(desc);
-
-        // buttons.appendChild(completed);
-        // buttons.appendChild(remBtn);
-
-        // card.appendChild(info);
     });
 }
 
@@ -220,6 +197,7 @@ const displayTask = (task) => {
     const btnGroup = document.createElement("div");
     btnGroup.appendChild(read);
     btnGroup.appendChild(deleteBtn);
+    btnGroup.classList.add("btnGroup");
     card.appendChild(btnGroup);
 
     // Add to DOM

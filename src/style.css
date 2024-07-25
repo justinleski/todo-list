@@ -71,6 +71,8 @@ main {
     display: grid;
     grid-template-rows: 1fr 8fr;
     flex: auto; /*Forces main (flex child) to take remaining width of page*/
+    padding-left: 24px;
+    padding-right: 24px;
 }
 
 header {
@@ -149,8 +151,22 @@ header {
     display: flex;
     max-width: 1280px;
     justify-content: space-between;
+    border-radius: 0.5rem;
+    padding: 16px;
 }
 
 .strikeOut {
     text-decoration: line-through;
+}
+
+.btnGroup {
+    width: 128px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.projSpan {
+    display: flex;
+    justify-content: space-between;
 }

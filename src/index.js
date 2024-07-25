@@ -1,21 +1,10 @@
-import { loadProj, createProj, addTaskToProj } from "./modules/projects.js";
+import { createProj, addTaskToProj } from "./modules/projects.js";
 import { hideModal, updateProjList, displayProj, addOverlay, remOverlay, displayTask, activateModal, makeTaskModal, makeProjModal } from "./modules/domManipulator.js";
 import { makeTask } from "./modules/task.js";
 
 // Store all projects in array
 var projects = [];
 var currentProject = projects[0]; // make current project index 0 by default
-
-
-
-// Create default project for user
-// projects.push(createProj("My First Project", "", ""));
-// projects.push(createProj("My Second Project", "", "")); 
-
-
-// 
-//updateProjList(projects);
-
 
 // assign button 
 var newTask = document.querySelector("#mainTaskBtn");
@@ -63,11 +52,12 @@ newProj.addEventListener("click", () => {
         updateProjList(projects); 
 
         //
-        var h3s = document.querySelector("#projList").children;
+        var h3s = document.querySelectorAll("#projList .projSpan h3");
 
         for (const headerLink of h3s) { // make sure headerLink is const - var will chnage to most recent only
             headerLink.addEventListener("click", () => {
                 // The current project will be based off of the data attribute on the header displayed on the DOM
+                
                 currentProject = projects[headerLink.getAttribute("data-project-number")];
                 displayProj(currentProject);
             });

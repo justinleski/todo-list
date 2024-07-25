@@ -4,12 +4,12 @@ class Project {
         this.notes = notes;
         this.tasks = tasks;
     }
-
-
 }
 
-const loadProj = () => {
-    
+const removeProj = (index, projects) => {
+    // Take the attribute as the index and remove
+    projects.splice(index, 1); // remove 1 project at index
+    // Keep in mind you do not have to renumber data attributes as program reloads all projects on refresh
 }
 
 const createProj = (name, notes, tasks) => {
@@ -21,4 +21,4 @@ const addTaskToProj = (task, proj) => {
     return proj;
 }
 
-export { loadProj, createProj, addTaskToProj };
+export { createProj, addTaskToProj, removeProj };
