@@ -26,11 +26,14 @@ newTask.addEventListener("click", () => {
 
     document.querySelector("#taskAddBtn").addEventListener("click", function(e) {
         e.preventDefault();
+        // Current project is based on the data attribute of the header displayed on screen
+        console.log("The current proejct is: "+currentProject);
 
-        // Select current task and add to task list
-        var task = makeTask();
-
-        //addTaskToProj(project, task);
+        // Take the current inputs on the form's field
+        const currentTask= makeTask();
+        addTaskToProj(currentTask, currentProject);
+        // Display it?
+        displayTask(currentTask);
 
         // Hide after new task made
         remOverlay();
@@ -57,7 +60,19 @@ newProj.addEventListener("click", () => {
         var emptyTasks = [];
         currentProject = createProj(name, "", emptyTasks); // Make current project the most recently created proj
         projects.push(currentProject);
-        updateProjList(projects);
+        updateProjList(projects); 
+
+        //
+        var h3s = document.querySelector("#projList").children;
+
+        for (const headerLink of h3s) { // make sure headerLink is const - var will chnage to most recent only
+            headerLink.addEventListener("click", () => {
+                // The current project will be based off of the data attribute on the header displayed on the DOM
+                currentProject = projects[headerLink.getAttribute("data-project-number")];
+                displayProj(currentProject);
+            });
+        }
+
 
         // Set the current project and display it
         displayProj(currentProject);
