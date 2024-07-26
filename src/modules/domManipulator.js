@@ -1,5 +1,6 @@
 import "../style.css";
 import { removeProj } from "./projects";
+import { removeTask } from "./task.js"
 
 const activateModal = () => {
     const modal = document.querySelector("#modal");
@@ -143,7 +144,6 @@ const updateProjList = (projects) => {
         deleteBtn.addEventListener("click", () => {
             deleteBtn.parentElement.remove();
             removeProj(index, projects);
-            // TODO - ADD DELETE PROJECTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
         });
 
         projSpan.appendChild(name);
@@ -166,11 +166,11 @@ const displayProj = (project) => {
     // Clear old tasks and display new ones
     clearContent(currTasks);
     tasks.forEach((task) => {
-        displayTask(task);
+        displayTask(project, task);
     });
 }
 
-const displayTask = (task) => {
+const displayTask = (currentProject, task) => {
 
     // Create a task card
     const card = document.createElement("div");
@@ -182,17 +182,29 @@ const displayTask = (task) => {
     const desc = document.createElement("p");
     desc.innerText = task.desc.value;
     const textInfo = document.createElement("div");
-    //textInfo.classList.add(""); // ADD CLASS LIST TO MAKE COLUMN
     textInfo.appendChild(title);
     textInfo.appendChild(desc);
     card.appendChild(textInfo);
+    card.setAttribute("data-task-number", task.taskNum);
 
     // actions buttons
     const read = document.createElement("input");
     read.setAttribute("type", "checkbox");
-    read.checked = task.completed; // MAYBE ADD EVENT LISTENER TO BUTTON??
+    read.checked = task.completed; 
 
     const deleteBtn = document.createElement("button");
+    deleteBtn.innerHTML = "&times;";
+    deleteBtn.addEventListener("click", () => {
+        const taskIndex = deleteBtn.parentElement.parentElement.getAttribute("data-task-number");
+        removeTask(currentProject, taskIndex); 
+        deleteBtn.parentElement.parentElement.remove(); 
+        // We need to update the data-task live somehow
+        document.querySelectorAll(".taskCard").forEach((card) => {
+            if (card.getAttribute("data-task-number") > taskIndex) {
+                card.setAttribute("data-task-number", card.getAttribute("data-task-number")-1);
+            }
+        })
+    });
 
     const btnGroup = document.createElement("div");
     btnGroup.appendChild(read);

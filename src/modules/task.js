@@ -6,10 +6,19 @@ class Task {
         this.due = due;
         this.completed = completed;
         this.priority = priority;
+        this._taskNum = null;
+    }
+
+    set taskNum(value) {
+        this._taskNum = value;
+    }
+
+    get taskNum() {
+        return this._taskNum;
     }
 }
 
-const makeTask = () => {
+const makeTask = (currentProject) => {
     // Take form inputs and make new task
     var taskName = document.querySelector("#task-name");
     var taskDesc = document.querySelector("#task-desc");
@@ -19,9 +28,28 @@ const makeTask = () => {
 
     // Make new task and return obj
     var task = new Task(taskName, taskDesc, taskDue, taskComp, taskPriority);
+
+    // Calculate index of task
+    task.taskNum = currentProject.tasks.length;
+
     return task;
 
 }
 
+const removeTask = (currentProject, taskNumber) => {
+    var tasks = currentProject.tasks;
 
-export { makeTask }
+    // for task in tasks > 1, index-- ; De-incriment the taskNumbers for anything above
+    for (let i = 0; i < tasks.length; i++) {
+        if (i > taskNumber) {
+            tasks[i].taskNum--;
+        }
+    }
+
+    // Remove from array
+    tasks.splice(taskNumber, 1);
+   
+    console.log(tasks);
+}
+
+export { makeTask, removeTask }

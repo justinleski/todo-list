@@ -8,6 +8,10 @@ var currentProject = projects[0]; // make current project index 0 by default
 
 // assign button 
 var newTask = document.querySelector("#mainTaskBtn");
+if (projects.length <= 0) {
+    newTask.disabled = true;
+}
+
 newTask.addEventListener("click", () => {
     addOverlay();
     makeTaskModal(); // add event listener to button here to make it prevent default
@@ -19,10 +23,9 @@ newTask.addEventListener("click", () => {
         console.log("The current proejct is: "+currentProject);
 
         // Take the current inputs on the form's field
-        const currentTask= makeTask();
+        const currentTask= makeTask(currentProject);
         addTaskToProj(currentTask, currentProject);
-        // Display it?
-        displayTask(currentTask);
+        displayTask(currentProject, currentTask); // list length is used to determine data attribute num of each task
 
         // Hide after new task made
         remOverlay();
@@ -31,12 +34,7 @@ newTask.addEventListener("click", () => {
     
 });
 
-// For project dropdown on the side make button load corresponding project
-// projectButtons.forEach(button => {
-//     button.addEventListener("click", () => {
-        
-//     });
-// })
+
 var newProj = document.querySelector("#newProjBtn");
 newProj.addEventListener("click", () => {
     // Clear old modal and make one specific to newProj
@@ -63,15 +61,12 @@ newProj.addEventListener("click", () => {
             });
         }
 
-
         // Set the current project and display it
         displayProj(currentProject);
+        newTask.disabled = false;
         remOverlay();
         hideModal();
     });
-
-    
-
 });
 
 // Cancel task creation in modal
@@ -81,13 +76,3 @@ cancelBtn.addEventListener("click", () => {
     hideModal();
 });
 
-// Check for form submission
-// let taskForm = document.querySelector("#taskForm");
-// taskForm.addEventListener("submit", (e) => {
-//     e.preventDefault();
-
-//     // Call functions to update tasks for the current project
-//     var task = makeTask();
-//     displayTask(task);
-
-// });
