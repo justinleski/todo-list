@@ -63,12 +63,15 @@ const makeTaskModal = () => {
     var radioLow = document.createElement("input");
     radioLow.type = "radio";
     radioLow.setAttribute("name", "priority-buttons");
+    radioLow.setAttribute("data-type", "low");
     var radioMedium = document.createElement("input");
     radioMedium.type = "radio";
     radioMedium.setAttribute("name", "priority-buttons");
+    radioMedium.setAttribute("data-type", "medium");
     var radioHigh = document.createElement("input");
     radioHigh.type = "radio";
     radioHigh.setAttribute("name", "priority-buttons");
+    radioHigh.setAttribute("data-type", "high");
     priorityField.appendChild(radioLow);
     priorityField.appendChild(radioMedium);
     priorityField.appendChild(radioHigh);
@@ -153,7 +156,6 @@ const updateProjList = (projects) => {
     });
 }
 
-
 const displayProj = (project) => {
     // Select the project name and tasks to display for each individual proj
     var projName = document.querySelector("#projName");
@@ -175,6 +177,17 @@ const displayTask = (currentProject, task) => {
     // Create a task card
     const card = document.createElement("div");
     card.classList.add("taskCard");
+    switch(task.priority) {
+        case "high":
+            card.style.borderLeftColor = "#ffa080";
+            break;
+        case "medium":
+            card.style.borderLeftColor = "#ffdf80";
+            break;
+        case "low":
+            card.style.borderLeftColor = "#a5d46a";
+            break;
+    }
 
     // create text info
     const title = document.createElement("h2");

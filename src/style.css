@@ -4,6 +4,12 @@
 :root {
     --main-font: "Poppins", sans-serif;
     --secondary-font: "Tajawal", sans-serif;
+    --task-card-color: #cbd2bd;
+    --primary-color: #db523a;
+    --secondary-color: #3eb1b7;
+    --tertiary-color: #5f6949;
+    --neutral-tone: #fff2e4;
+    --nav-color: #e6dbcf;
 }
 
 *, *::before, *::after {
@@ -40,7 +46,7 @@ p, h1, h2, h3, h4, h5, h6 {
 
 button {
     border: 0;
-    
+
 }
 
 nav {
@@ -49,7 +55,7 @@ nav {
     gap: 8px;
     width: max(120px, 10%, 10vw);
     height: 100vh;
-    background-color: aqua;
+    background-color: var(--nav-color);
 }
 
 nav h2 {
@@ -58,6 +64,7 @@ nav h2 {
 
 .heading {
     font-family: var(--secondary-font);
+    color: var(--secondary-color);
     font-weight: 700;
 }
 
@@ -76,18 +83,20 @@ main {
     display: grid;
     grid-template-rows: 1fr 8fr;
     flex: auto; /*Forces main (flex child) to take remaining width of page*/
-    padding-left: 24px;
-    padding-right: 24px;
 }
 
 header {
     display: flex;
     align-items: center;
+    background-color: var(--neutral-tone);
+    padding-left: 24px;
+    padding-right: 24px;
 }
 
 /**/
 #projName {
     font-size: clamp(2rem, 3rem, 4rem);
+    color: var(--primary-color);
 }
 
 .newTask {
@@ -150,12 +159,20 @@ header {
     cursor: pointer;
 }
 
+#tasks {
+    padding-left: 24px;
+    padding-right: 24px;
+}
+
 .taskCard {
+    margin-top: 24px;
     display: flex;
     max-width: 1280px;
     justify-content: space-between;
     border-radius: 0.5rem;
     padding: 16px;
+    background-color: var(--task-card-color);
+    border-left: 5px solid var(--task-card-color);
 }
 
 .strikeOut {
@@ -174,4 +191,36 @@ header {
     justify-content: space-between;
     background: inherit;
    
+}
+
+fieldset {
+    border: 1;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    font-family: var(--secondary-font);
+    margin-bottom: 16px;
+}
+
+#mainTaskBtn, #newProjBtn {
+    color: var(--tertiary-color);
+}
+
+#newProjBtn {
+    margin-left: 4px;
+    margin-right: 4px;
+    border-radius: 100%;
+    line-height: 1;
+}
+
+.myProjs {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+}
+
+.myProjs, .projSpan {
+    padding-left: 8px;
+    padding-right: 8px;
 }

@@ -19,8 +19,6 @@ newTask.addEventListener("click", () => {
 
     document.querySelector("#taskAddBtn").addEventListener("click", function(e) {
         e.preventDefault();
-        // Current project is based on the data attribute of the header displayed on screen
-        console.log("The current proejct is: "+currentProject);
 
         // Take the current inputs on the form's field
         const currentTask= makeTask(currentProject);

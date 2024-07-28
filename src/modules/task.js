@@ -23,7 +23,8 @@ const makeTask = (currentProject) => {
     var taskName = document.querySelector("#task-name");
     var taskDesc = document.querySelector("#task-desc");
     var taskDue = document.querySelector("#task-due");
-    var taskPriority = document.querySelector("#task-priority");
+    var taskPriority = document.querySelector('input[name="priority-buttons"]:checked').getAttribute("data-type");
+    console.log(taskPriority);
     var taskComp = document.querySelector("#task-comp");
 
     // Make new task and return obj
