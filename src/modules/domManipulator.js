@@ -64,6 +64,7 @@ const makeTaskModal = () => {
     radioLow.type = "radio";
     radioLow.setAttribute("name", "priority-buttons");
     radioLow.setAttribute("data-type", "low");
+    radioLow.checked = true; // default so form does not break
     var radioMedium = document.createElement("input");
     radioMedium.type = "radio";
     radioMedium.setAttribute("name", "priority-buttons");
@@ -204,6 +205,11 @@ const displayTask = (currentProject, task) => {
     const read = document.createElement("input");
     read.setAttribute("type", "checkbox");
     read.checked = task.completed; 
+    isStriked(task, desc);
+    read.addEventListener("click", () => {
+        task.completed = read.checked;
+        isStriked(task, desc);
+    })
 
     const deleteBtn = document.createElement("button");
     deleteBtn.innerHTML = "&times;";
@@ -231,12 +237,13 @@ const displayTask = (currentProject, task) => {
 
 }
 
-function addStrike(content) {
-    content.classList.add("strikeOut");
-}
-
-function remStrike(content) {
-    content.classList.add("strikeOut");
+function isStriked(task, content) {
+    if (task.completed == true){
+        content.classList.add("strikeOut");
+    } else {
+        content.classList.remove("strikeOut");
+    }
+    
 }
 
 function clearContent(content) {

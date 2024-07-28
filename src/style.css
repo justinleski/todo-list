@@ -177,6 +177,7 @@ header {
 
 .strikeOut {
     text-decoration: line-through;
+    color: #5d5d5f;
 }
 
 .btnGroup {
