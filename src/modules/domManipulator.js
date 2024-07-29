@@ -111,6 +111,29 @@ const makeProjModal = () => {
     modal.appendChild(button);
 }
 
+const makeNotesModal = (currentProject) => {
+    const modal = document.querySelector("#modal");
+    clearContent(modal);
+    modal.appendChild(createCancel());
+
+    const title = document.createElement("h3");
+    title.innerText = "Notes";
+
+    var textField = document.createElement("textarea");
+    textField.id = "notesField";
+    textField.value = currentProject.notes;
+
+    // Not best practice, but did not learn about async yet so this is what works
+    textField.addEventListener("input", () => {
+        // On every input, update the current project internally
+        currentProject.notes = textField.value;
+        console.log("The notes look like: "+currentProject.notes);
+    });
+
+    modal.appendChild(title);
+    modal.appendChild(textField);
+}
+
 const createCancel = () => {
     // Cancel task creation in modal
     var cancelBtn = document.createElement("button");
@@ -250,4 +273,4 @@ function clearContent(content) {
     content.replaceChildren();
 }
 
-export { activateModal, hideModal, updateProjList, displayProj, addOverlay, remOverlay, displayTask, makeTaskModal, makeProjModal };
+export { activateModal, hideModal, updateProjList, displayProj, addOverlay, remOverlay, displayTask, makeTaskModal, makeProjModal, makeNotesModal };

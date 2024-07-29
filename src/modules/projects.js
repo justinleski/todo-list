@@ -4,6 +4,14 @@ class Project {
         this.notes = notes;
         this.tasks = tasks;
     }
+
+    // set notes(value) {
+    //     this.notes = value;
+    // }
+
+    // get notes() {
+    //     return this.notes;
+    // }
 }
 
 const removeProj = (index, projects) => {

@@ -1,5 +1,5 @@
 import { createProj, addTaskToProj } from "./modules/projects.js";
-import { hideModal, updateProjList, displayProj, addOverlay, remOverlay, displayTask, activateModal, makeTaskModal, makeProjModal } from "./modules/domManipulator.js";
+import { hideModal, updateProjList, displayProj, addOverlay, remOverlay, displayTask, activateModal, makeTaskModal, makeProjModal, makeNotesModal } from "./modules/domManipulator.js";
 import { makeTask } from "./modules/task.js";
 
 // Store all projects in array
@@ -65,6 +65,12 @@ newProj.addEventListener("click", () => {
         remOverlay();
         hideModal();
     });
+});
+
+document.querySelector("#notes").addEventListener("click", () => {
+    addOverlay();
+    makeNotesModal(currentProject);
+    activateModal();
 });
 
 // Cancel task creation in modal

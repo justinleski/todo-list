@@ -46,7 +46,10 @@ p, h1, h2, h3, h4, h5, h6 {
 
 button {
     border: 0;
+}
 
+input, button {
+    font-family: var(--secondary-font);
 }
 
 nav {
@@ -88,6 +91,7 @@ main {
 header {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     background-color: var(--neutral-tone);
     padding-left: 24px;
     padding-right: 24px;
@@ -210,8 +214,10 @@ fieldset {
 #newProjBtn {
     margin-left: 4px;
     margin-right: 4px;
-    border-radius: 100%;
     line-height: 1;
+    background-color: transparent;
+    font-weight: 900;
+    font-size: xx-large;
 }
 
 .myProjs {
@@ -225,3 +231,11 @@ fieldset {
     padding-left: 8px;
     padding-right: 8px;
 }
+
+#notesField {
+    height: 80vh;
+    min-height: max(80vh, 75%, 300px);
+    width: 100%;
+    font-family: var(--secondary-font);
+}
+
