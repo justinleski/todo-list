@@ -185,10 +185,11 @@ header {
 }
 
 .btnGroup {
-    width: 128px;
+    width: 20%;
     display: flex;
     align-items: center;
     justify-content: space-evenly;
+    font-family: var(--secondary-font);
 }
 
 .projSpan {

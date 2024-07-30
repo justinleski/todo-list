@@ -1,6 +1,7 @@
 import "../style.css";
 import { removeProj } from "./projects";
 import { removeTask } from "./task.js"
+import { format, parse, parseISO } from "date-fns";
 
 const activateModal = () => {
     const modal = document.querySelector("#modal");
@@ -127,7 +128,6 @@ const makeNotesModal = (currentProject) => {
     textField.addEventListener("input", () => {
         // On every input, update the current project internally
         currentProject.notes = textField.value;
-        console.log("The notes look like: "+currentProject.notes);
     });
 
     modal.appendChild(title);
@@ -248,7 +248,16 @@ const displayTask = (currentProject, task) => {
         })
     });
 
+    // Format date and display
+    console.log("task is due: "+task.due.value);
+    var parsedData = parseISO(task.due.value);
+    const formattedData = format(parsedData, "MMM do, yyyy");
+
+    var dueDate = document.createElement("p");
+    dueDate.textContent = formattedData; // FIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
     const btnGroup = document.createElement("div");
+    btnGroup.appendChild(dueDate); // TESTTTTTTTTTTTTTTTTTTTTTTTTTTT
     btnGroup.appendChild(read);
     btnGroup.appendChild(deleteBtn);
     btnGroup.classList.add("btnGroup");

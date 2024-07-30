@@ -8,8 +8,10 @@ var currentProject = projects[0]; // make current project index 0 by default
 
 // assign button 
 var newTask = document.querySelector("#mainTaskBtn");
+var notesBtn = document.querySelector("#notes");
 if (projects.length <= 0) {
     newTask.disabled = true;
+    notesBtn.disabled = true;
 }
 
 newTask.addEventListener("click", () => {
@@ -62,6 +64,7 @@ newProj.addEventListener("click", () => {
         // Set the current project and display it
         displayProj(currentProject);
         newTask.disabled = false;
+        notesBtn.disabled = false;
         remOverlay();
         hideModal();
     });
