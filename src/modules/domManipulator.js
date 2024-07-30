@@ -1,7 +1,7 @@
 import "../style.css";
 import { removeProj } from "./projects";
 import { removeTask } from "./task.js"
-import { format, parse, parseISO } from "date-fns";
+import { format, parseISO } from "date-fns";
 
 const activateModal = () => {
     const modal = document.querySelector("#modal");
@@ -47,9 +47,19 @@ const makeTaskModal = () => {
     var dateLabel = document.createElement("label");
     dateLabel.innerText = "Due Date:";
     dateLabel.setAttribute("for", "task-due");
+
+    // Get the current date
+    const today = new Date();
+    // Format the date as yyyy-mm-dd
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
+    const dd = String(today.getDate()).padStart(2, '0');
+    const formattedDate = `${yyyy}-${mm}-${dd}`;
     var dateInput = document.createElement("input");
     dateInput.setAttribute("type", "date");
     dateInput.setAttribute("id", "task-due");
+    dateInput.required = true;
+    dateInput.value = formattedDate;
     dateField.appendChild(dateLabel);
     dateField.appendChild(dateInput);
     form.appendChild(dateField);
@@ -61,22 +71,28 @@ const makeTaskModal = () => {
     priorityField.appendChild(priorityLabel);
 
     // Priority radio buttons
+    const radioBtns = document.createElement("div");
+    radioBtns.classList.add("radioBtns");
     var radioLow = document.createElement("input");
     radioLow.type = "radio";
+    radioLow.style.backgroundColor = "#a5d46a";
     radioLow.setAttribute("name", "priority-buttons");
     radioLow.setAttribute("data-type", "low");
     radioLow.checked = true; // default so form does not break
     var radioMedium = document.createElement("input");
     radioMedium.type = "radio";
+    radioMedium.style.backgroundColor = "#ffdf80";
     radioMedium.setAttribute("name", "priority-buttons");
     radioMedium.setAttribute("data-type", "medium");
     var radioHigh = document.createElement("input");
     radioHigh.type = "radio";
+    radioHigh.style.backgroundColor = "#ffa080";
     radioHigh.setAttribute("name", "priority-buttons");
     radioHigh.setAttribute("data-type", "high");
-    priorityField.appendChild(radioLow);
-    priorityField.appendChild(radioMedium);
-    priorityField.appendChild(radioHigh);
+    radioBtns.appendChild(radioLow);
+    radioBtns.appendChild(radioMedium);
+    radioBtns.appendChild(radioHigh);
+    priorityField.appendChild(radioBtns);
 
     var taskComp = document.createElement("input");
     taskComp.setAttribute("type", "checkbox");
@@ -167,6 +183,8 @@ const updateProjList = (projects) => {
         name.textContent = project.name;
         name.setAttribute("data-project-number", index); // give unique data attribute to header based on index
         const deleteBtn = document.createElement("button");
+        deleteBtn.classList.add("deleteBtn");
+        //deleteBtn.innerHTML = '<?xml version="1.0" encoding="UTF-8"?><svg width="24px" height="24px" viewBox="0 0 24 24" stroke-width="1.5" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000"><path d="M20 9L18.005 20.3463C17.8369 21.3026 17.0062 22 16.0353 22H7.96474C6.99379 22 6.1631 21.3026 5.99496 20.3463L4 9" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M21 6L15.375 6M3 6L8.625 6M8.625 6V4C8.625 2.89543 9.52043 2 10.625 2H13.375C14.4796 2 15.375 2.89543 15.375 4V6M8.625 6L15.375 6" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>';
         deleteBtn.innerHTML = "&times;";
         deleteBtn.addEventListener("click", () => {
             deleteBtn.parentElement.remove();
@@ -216,8 +234,10 @@ const displayTask = (currentProject, task) => {
     // create text info
     const title = document.createElement("h2");
     title.innerText = task.name.value;
+    title.classList.add("taskTitle");
     const desc = document.createElement("p");
     desc.innerText = task.desc.value;
+    desc.classList.add("taskDesc");
     const textInfo = document.createElement("div");
     textInfo.appendChild(title);
     textInfo.appendChild(desc);
@@ -235,7 +255,8 @@ const displayTask = (currentProject, task) => {
     })
 
     const deleteBtn = document.createElement("button");
-    deleteBtn.innerHTML = "&times;";
+    deleteBtn.innerHTML = '<?xml version="1.0" encoding="UTF-8"?><svg width="24px" height="24px" viewBox="0 0 24 24" stroke-width="1.5" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000"><path d="M20 9L18.005 20.3463C17.8369 21.3026 17.0062 22 16.0353 22H7.96474C6.99379 22 6.1631 21.3026 5.99496 20.3463L4 9" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M21 6L15.375 6M3 6L8.625 6M8.625 6V4C8.625 2.89543 9.52043 2 10.625 2H13.375C14.4796 2 15.375 2.89543 15.375 4V6M8.625 6L15.375 6" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>';
+    deleteBtn.classList.add("svgBtn");
     deleteBtn.addEventListener("click", () => {
         const taskIndex = deleteBtn.parentElement.parentElement.getAttribute("data-task-number");
         removeTask(currentProject, taskIndex); 
@@ -254,10 +275,10 @@ const displayTask = (currentProject, task) => {
     const formattedData = format(parsedData, "MMM do, yyyy");
 
     var dueDate = document.createElement("p");
-    dueDate.textContent = formattedData; // FIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+    dueDate.textContent = formattedData; 
 
     const btnGroup = document.createElement("div");
-    btnGroup.appendChild(dueDate); // TESTTTTTTTTTTTTTTTTTTTTTTTTTTT
+    btnGroup.appendChild(dueDate); 
     btnGroup.appendChild(read);
     btnGroup.appendChild(deleteBtn);
     btnGroup.classList.add("btnGroup");
@@ -267,6 +288,28 @@ const displayTask = (currentProject, task) => {
     var taskList = document.querySelector("#tasks");
     taskList.appendChild(card); // We can just do this, we need to store the DOM elements somewhere per project basis unless we remake each task each time
 
+}
+
+const noProjects = () => {
+    var tasks = document.querySelector("#tasks");
+
+    const container = document.createElement("div");
+    container.classList.add("noProjects");
+
+    const folderIcon = '<?xml version="1.0" encoding="UTF-8"?><svg width="24px" height="24px" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000"><path d="M2 11V4.6C2 4.26863 2.26863 4 2.6 4H8.77805C8.92127 4 9.05977 4.05124 9.16852 4.14445L12.3315 6.85555C12.4402 6.94876 12.5787 7 12.722 7H21.4C21.7314 7 22 7.26863 22 7.6V11M2 11V19.4C2 19.7314 2.26863 20 2.6 20H21.4C21.7314 20 22 19.7314 22 19.4V11M2 11H22" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>';
+    const iconHolder = document.createElement("div");
+    iconHolder.innerHTML = folderIcon;
+    container.appendChild(iconHolder);
+
+    const displayText = document.createElement("h3");
+    displayText.textContent = "You currently have no projects";
+    container.appendChild(displayText);
+
+    const explanation = document.createElement("p");
+    explanation.textContent = "To get started, press the + in the My Projects column";
+    container.appendChild(explanation);
+
+    tasks.appendChild(container);
 }
 
 function isStriked(task, content) {
@@ -282,4 +325,4 @@ function clearContent(content) {
     content.replaceChildren();
 }
 
-export { activateModal, hideModal, updateProjList, displayProj, addOverlay, remOverlay, displayTask, makeTaskModal, makeProjModal, makeNotesModal };
+export { activateModal, hideModal, updateProjList, displayProj, addOverlay, remOverlay, displayTask, makeTaskModal, makeProjModal, makeNotesModal, noProjects };

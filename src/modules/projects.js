@@ -4,14 +4,6 @@ class Project {
         this.notes = notes;
         this.tasks = tasks;
     }
-
-    // set notes(value) {
-    //     this.notes = value;
-    // }
-
-    // get notes() {
-    //     return this.notes;
-    // }
 }
 
 const removeProj = (index, projects) => {
@@ -28,5 +20,6 @@ const addTaskToProj = (task, proj) => {
     proj.tasks.push(task);
     return proj;
 }
+
 
 export { createProj, addTaskToProj, removeProj };

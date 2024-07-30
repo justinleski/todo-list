@@ -1,5 +1,5 @@
 import { createProj, addTaskToProj } from "./modules/projects.js";
-import { hideModal, updateProjList, displayProj, addOverlay, remOverlay, displayTask, activateModal, makeTaskModal, makeProjModal, makeNotesModal } from "./modules/domManipulator.js";
+import { hideModal, updateProjList, displayProj, addOverlay, remOverlay, displayTask, activateModal, makeTaskModal, makeProjModal, makeNotesModal, noProjects } from "./modules/domManipulator.js";
 import { makeTask } from "./modules/task.js";
 
 // Store all projects in array
@@ -9,9 +9,15 @@ var currentProject = projects[0]; // make current project index 0 by default
 // assign button 
 var newTask = document.querySelector("#mainTaskBtn");
 var notesBtn = document.querySelector("#notes");
+
+// Check if user has projects
 if (projects.length <= 0) {
+    noProjects();
     newTask.disabled = true;
     notesBtn.disabled = true;
+}
+else {
+    currentProject = projects[0];
 }
 
 newTask.addEventListener("click", () => {
