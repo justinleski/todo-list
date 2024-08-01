@@ -334,3 +334,15 @@ input[type="checkbox"] {
 .radioBtns input[type="radio"]:checked {
     box-shadow: 0 0 0 1.5px black;
 }
+
+.banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: max(5vh, 100px, 1rem);
+    background-color: var(--tertiary-color);
+    font-family: var(--main-font);
+    padding-left: max(2rem, 16px);
+    padding-right: max(2rem, 16px);
+    color: white;
+}

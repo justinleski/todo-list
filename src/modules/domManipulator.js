@@ -13,6 +13,58 @@ const hideModal = () => {
     modal.classList.remove("active");
 }
 
+const makeSignInModal = () => {
+    const modal = document.querySelector("#modal");
+    clearContent(modal);
+
+    // cancel button
+    modal.appendChild( createCancel());
+
+    // 
+    var form = document.createElement("form");
+    form.setAttribute("id", "signInForm");
+
+    var textField = document.createElement("fieldset");
+
+    var emailLabel = document.createElement("label");
+    emailLabel.innerText = "Email:";
+    emailLabel.setAttribute("for", "user-email");
+    var emailInput = document.createElement("input");
+    emailInput.setAttribute("id", "user-email");
+    emailInput.required = true;
+
+    var passLabel = document.createElement("label");
+    passLabel.innerText = "Password:";
+    passLabel.setAttribute("for", "user-pass");
+    var passInput = document.createElement("input");
+    passInput.setAttribute("id", "user-pass");
+    passInput.required = true;
+
+    // Make button
+    var button = document.createElement("button");
+    button.innerText = "Sign Up";
+    button.id = "makeNewAccount";
+
+    // Make an "already have account?" href
+    var signInPrompt = document.createElement("p");
+    signInPrompt.innerText = "Already have an account? Sign in.";
+    signInPrompt.id = "signInPrompt";
+
+    // Append all children
+    textField.appendChild(emailLabel);
+    textField.appendChild(emailInput);
+    textField.appendChild(passLabel);
+    textField.appendChild(passInput);
+    textField.appendChild(button);
+
+    //
+    var heading = document.createElement("h2");
+    heading.innerText = "Sign Up";
+    modal.appendChild(heading);
+    modal.appendChild(textField);
+    modal.appendChild(signInPrompt);
+}
+
 const makeTaskModal = () => {
     const modal = document.querySelector("#modal");
     clearContent(modal);
@@ -325,4 +377,6 @@ function clearContent(content) {
     content.replaceChildren();
 }
 
-export { activateModal, hideModal, updateProjList, displayProj, addOverlay, remOverlay, displayTask, makeTaskModal, makeProjModal, makeNotesModal, noProjects };
+export { activateModal, hideModal, updateProjList, displayProj, 
+    addOverlay, remOverlay, displayTask, makeTaskModal, 
+    makeProjModal, makeNotesModal, noProjects, makeSignInModal };

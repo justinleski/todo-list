@@ -1,6 +1,9 @@
 import { createProj, addTaskToProj } from "./modules/projects.js";
-import { hideModal, updateProjList, displayProj, addOverlay, remOverlay, displayTask, activateModal, makeTaskModal, makeProjModal, makeNotesModal, noProjects } from "./modules/domManipulator.js";
+import { hideModal, updateProjList, displayProj, addOverlay, remOverlay, displayTask, activateModal, makeTaskModal, makeProjModal, makeNotesModal, noProjects, makeSignInModal } from "./modules/domManipulator.js";
 import { makeTask } from "./modules/task.js";
+import { signUpWithEmail } from "../utilities/authentication/signIn.js";
+// import { onAuthStateChanged } from "firebase/auth";
+// import { auth } from "./firebaseConfig.js"
 
 // Store all projects in array
 var projects = [];
@@ -40,6 +43,28 @@ newTask.addEventListener("click", () => {
     
 });
 
+document.querySelector("#signInBtn").addEventListener("click", (e) => {
+    e.preventDefault();
+
+    // Create modal
+    addOverlay();
+    makeSignInModal();
+    activateModal();
+
+    // Sign in prompt under sign up form will allow user to sign in
+    document.querySelector("#signInPrompt").addEventListener("click", () => {
+        //
+        console.log("Test?");
+    });
+
+    // Add event listener to top right "sign in" button which will then pass in our user inputted fields from the modal to signIn.js
+    document.querySelector("#makeNewAccount").addEventListener("click", () => {
+        const userEmail = document.querySelector("#user-email").value;
+        const userPass = document.querySelector("#user-pass").value;
+        signUpWithEmail(userEmail, userPass); 
+    });
+});
+
 
 var newProj = document.querySelector("#newProjBtn");
 newProj.addEventListener("click", () => {
@@ -48,6 +73,7 @@ newProj.addEventListener("click", () => {
     makeProjModal();
     activateModal();
 
+    // 
     document.querySelector("#makeProjBtn").addEventListener("click", () =>{
         var name = document.querySelector("#projNameField").value;
         var emptyTasks = [];
