@@ -2,8 +2,9 @@ import { createProj, addTaskToProj } from "./modules/projects.js";
 import { hideModal, updateProjList, displayProj, addOverlay, remOverlay, displayTask, activateModal, makeTaskModal, makeProjModal, makeNotesModal, noProjects, makeSignInModal } from "./modules/domManipulator.js";
 import { makeTask } from "./modules/task.js";
 import { signUpWithEmail } from "../utilities/authentication/signIn.js";
+import { storeNewUser } from "../utilities/database/storeUser.js";
 // import { onAuthStateChanged } from "firebase/auth";
-// import { auth } from "./firebaseConfig.js"
+import { auth } from "../firebaseConfig.js"
 
 // Store all projects in array
 var projects = [];
@@ -40,6 +41,8 @@ newTask.addEventListener("click", () => {
         remOverlay();
         hideModal();
     });
+
+    // Update tasks in proejcts TODO
     
 });
 
@@ -50,6 +53,7 @@ document.querySelector("#signInBtn").addEventListener("click", (e) => {
     addOverlay();
     makeSignInModal();
     activateModal();
+    //document.querySelector("#signUpForm").checkValidity();
 
     // Sign in prompt under sign up form will allow user to sign in
     document.querySelector("#signInPrompt").addEventListener("click", () => {
@@ -58,10 +62,14 @@ document.querySelector("#signInBtn").addEventListener("click", (e) => {
     });
 
     // Add event listener to top right "sign in" button which will then pass in our user inputted fields from the modal to signIn.js
-    document.querySelector("#makeNewAccount").addEventListener("click", () => {
+    document.querySelector("#makeNewAccount").addEventListener("click", (e) => {
+        e.preventDefault();
         const userEmail = document.querySelector("#user-email").value;
         const userPass = document.querySelector("#user-pass").value;
-        signUpWithEmail(userEmail, userPass); 
+        const userName = document.querySelector("#user-name").value;
+        console.log(userEmail);
+        signUpWithEmail(userEmail, userPass, userName); 
+        // storeNewUser(auth.getUser(uid), userEmail, userName); // tried moving to onauthstatechanged
     });
 });
 
@@ -93,6 +101,9 @@ newProj.addEventListener("click", () => {
             });
         }
 
+        // Store project to firebase - auth.currentUser is imported from fireBaseConfig.js
+        storeUserProject(auth.currentUser, currentProject);
+
         // Set the current project and display it
         displayProj(currentProject);
         newTask.disabled = false;
@@ -115,3 +126,6 @@ cancelBtn.addEventListener("click", () => {
     hideModal();
 });
 
+function storeProjectToDB(project) {
+
+}

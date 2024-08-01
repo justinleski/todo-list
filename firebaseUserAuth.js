@@ -1,17 +1,18 @@
-import { signInAnonymously } from "firebase/auth";
+import { signInAnonymously, onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebaseConfig.js"; 
 
 // Detetc auth state
 onAuthStateChanged(auth, (user) => {
 
     // Check if user not signed in
-    if(user == null) {
-      console.log("user not signed in");
-        return;
+    if(user) {
+        storeNewUser(user.uid, userEmail, userName);
+        console.log("We got the usr unAuthststaeChnaged: "+user.email);
+        
     } 
-    // Check if user is signed in, then we can store their data in the db
-    else if (user) {
-      console.log("Currently signed in is: "+user);
+    else {
+      console.log("user not signed in");
+      
     }
 
     // const { uid } = user;

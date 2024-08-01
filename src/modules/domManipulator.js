@@ -26,6 +26,13 @@ const makeSignInModal = () => {
 
     var textField = document.createElement("fieldset");
 
+    var nameLabel = document.createElement("label");
+    nameLabel.innerText = "Name:";
+    nameLabel.setAttribute("for", "user-name");
+    var nameInput = document.createElement("input");
+    nameInput.setAttribute("id", "user-name");
+    nameInput.required = true;
+
     var emailLabel = document.createElement("label");
     emailLabel.innerText = "Email:";
     emailLabel.setAttribute("for", "user-email");
@@ -51,11 +58,16 @@ const makeSignInModal = () => {
     signInPrompt.id = "signInPrompt";
 
     // Append all children
+    textField.appendChild(nameLabel);
+    textField.appendChild(nameInput);
     textField.appendChild(emailLabel);
     textField.appendChild(emailInput);
     textField.appendChild(passLabel);
     textField.appendChild(passInput);
     textField.appendChild(button);
+    // var form = document.createElement("form");
+    // form.id = "signUpForm";
+    // form.appendChild(textField);
 
     //
     var heading = document.createElement("h2");
