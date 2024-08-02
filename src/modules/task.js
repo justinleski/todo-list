@@ -50,7 +50,6 @@ const removeTask = (currentProject, taskNumber) => {
     // Remove from array
     tasks.splice(taskNumber, 1);
    
-    console.log(tasks);
 }
 
 export { makeTask, removeTask }

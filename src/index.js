@@ -102,7 +102,7 @@ newProj.addEventListener("click", () => {
         }
 
         // Store project to firebase - auth.currentUser is imported from fireBaseConfig.js
-        storeUserProject(auth.currentUser, currentProject);
+        //storeUserProject(auth.currentUser, currentProject);
 
         // Set the current project and display it
         displayProj(currentProject);
