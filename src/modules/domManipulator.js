@@ -26,6 +26,55 @@ const makeSignInModal = () => {
 
     var textField = document.createElement("fieldset");
 
+    var emailLabel = document.createElement("label");
+    emailLabel.innerText = "Email:";
+    emailLabel.setAttribute("for", "user-email");
+    var emailInput = document.createElement("input");
+    emailInput.setAttribute("id", "user-email");
+    emailInput.required = true;
+
+    var passLabel = document.createElement("label");
+    passLabel.innerText = "Password:";
+    passLabel.setAttribute("for", "user-pass");
+    var passInput = document.createElement("input");
+    passInput.setAttribute("id", "user-pass");
+    passInput.required = true;
+
+    // Make button
+    var button = document.createElement("button");
+    button.innerText = "Sign In";
+    button.id = "signBackIn";
+
+
+    // Append all children
+    textField.appendChild(emailLabel);
+    textField.appendChild(emailInput);
+    textField.appendChild(passLabel);
+    textField.appendChild(passInput);
+    textField.appendChild(button);
+
+
+    //
+    var heading = document.createElement("h2");
+    heading.innerText = "Sign In";
+    modal.appendChild(heading);
+    modal.appendChild(textField);
+
+}
+
+const makeSignUpModal = () => {
+    const modal = document.querySelector("#modal");
+    clearContent(modal);
+
+    // cancel button
+    modal.appendChild( createCancel());
+
+    // 
+    var form = document.createElement("form");
+    form.setAttribute("id", "signInForm");
+
+    var textField = document.createElement("fieldset");
+
     var nameLabel = document.createElement("label");
     nameLabel.innerText = "Name:";
     nameLabel.setAttribute("for", "user-name");
@@ -391,4 +440,4 @@ function clearContent(content) {
 
 export { activateModal, hideModal, updateProjList, displayProj, 
     addOverlay, remOverlay, displayTask, makeTaskModal, 
-    makeProjModal, makeNotesModal, noProjects, makeSignInModal };
+    makeProjModal, makeNotesModal, noProjects, makeSignInModal, makeSignUpModal };

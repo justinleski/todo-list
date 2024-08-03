@@ -1,20 +1,19 @@
 import { db } from "../../firebaseConfig.js";
-import { collection, setDoc, doc, addDoc } from "firebase/firestore"; 
+import { collection, setDoc, doc } from "firebase/firestore"; 
 
 export async function storeUserProject(user, project) {
 
     try{
-        // Make reference to users collection
         const projCollection = collection(db, "users", user.uid, "projects");
 
         // Generate unqiue project id
-        //const projUniqueId = generateUniqueId();
+        const projUniqueId = generateUniqueId();
 
          // Add a new document in collection "users"
-        const projRef = await addDoc(doc(projCollection, projUniqueId), {
+        const projRef = await setDoc(doc(projCollection, projUniqueId), { // TODO; we cannot store Objects in Firebase, we must make another subfolder an then a unique id to correspond
             project: project,
             projMade: Date.now(),
-            //uid: projUniqueId,
+            projUid: projUniqueId,
         });
     } catch (error) {
         console.error("Error storing the data: "+error);

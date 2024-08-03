@@ -1,10 +1,11 @@
 import { createProj, addTaskToProj } from "./modules/projects.js";
-import { hideModal, updateProjList, displayProj, addOverlay, remOverlay, displayTask, activateModal, makeTaskModal, makeProjModal, makeNotesModal, noProjects, makeSignInModal } from "./modules/domManipulator.js";
+import { hideModal, updateProjList, displayProj, addOverlay, remOverlay, displayTask, activateModal, makeTaskModal, makeProjModal, makeNotesModal, noProjects, makeSignInModal, makeSignUpModal } from "./modules/domManipulator.js";
 import { makeTask } from "./modules/task.js";
-import { signUpWithEmail } from "../utilities/authentication/signIn.js";
-import { storeNewUser } from "../utilities/database/storeUser.js";
-// import { onAuthStateChanged } from "firebase/auth";
+import { signInWithEmail, signUpWithEmail } from "../utilities/authentication/signIn.js";
+import { storeUserProject } from "../utilities/database/storeProject.js";
 import { auth } from "../firebaseConfig.js"
+
+console.log("Right at start of index.js: ", auth.currentUser);
 
 // Store all projects in array
 var projects = [];
@@ -37,6 +38,13 @@ newTask.addEventListener("click", () => {
         addTaskToProj(currentTask, currentProject);
         displayTask(currentProject, currentTask); // list length is used to determine data attribute num of each task
 
+        // After object is updated, overwrite and store it to Firestore
+        if (auth.currentUser !== null){
+            console.log("current user is: ", auth.currentUser); // TODO WE ENED CURRENT SUERRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
+            storeUserProject(auth.currentUser, currentProject);
+        }
+        
+
         // Hide after new task made
         remOverlay();
         hideModal();
@@ -51,14 +59,20 @@ document.querySelector("#signInBtn").addEventListener("click", (e) => {
 
     // Create modal
     addOverlay();
-    makeSignInModal();
+    makeSignUpModal();
     activateModal();
     //document.querySelector("#signUpForm").checkValidity();
 
     // Sign in prompt under sign up form will allow user to sign in
     document.querySelector("#signInPrompt").addEventListener("click", () => {
-        //
-        console.log("Test?");
+        makeSignInModal();
+
+        document.querySelector("#signBackIn").addEventListener("click", (e) =>{
+            e.preventDefault();
+            const userEmail = document.querySelector("#user-email").value;
+            const userPass = document.querySelector("#user-pass").value;
+            signInWithEmail(userEmail, userPass); // maybe return a t/f to put text on screen saying account doesnt exist
+        });
     });
 
     // Add event listener to top right "sign in" button which will then pass in our user inputted fields from the modal to signIn.js
@@ -67,9 +81,8 @@ document.querySelector("#signInBtn").addEventListener("click", (e) => {
         const userEmail = document.querySelector("#user-email").value;
         const userPass = document.querySelector("#user-pass").value;
         const userName = document.querySelector("#user-name").value;
-        console.log(userEmail);
         signUpWithEmail(userEmail, userPass, userName); 
-        // storeNewUser(auth.getUser(uid), userEmail, userName); // tried moving to onauthstatechanged
+        // TODO: check if account creation is successful then hide modal
     });
 });
 
@@ -125,7 +138,3 @@ cancelBtn.addEventListener("click", () => {
     remOverlay();
     hideModal();
 });
-
-function storeProjectToDB(project) {
-
-}
