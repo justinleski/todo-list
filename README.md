@@ -11,6 +11,9 @@ The project demo does not currently exist at this time; please check back later.
 - Hence, I tried to minimize how many functions "know" about each other. There are some cases in the DOM manipulation modules, however this is to be expected when adding `eventListener`s to buttons. 
 - Apparently reading the documentation *thoroughly* is hard; the `.splice` method requires the index **first**, followed by the number of elements to remove. I had this logic reversed and wondered why an arbitrary amount of elements were being removed from my array. As it turns out, this is due to a logic errror on my end (and comepetence) in ensuring that I had the method correct.
 
+#### Objects
+- When creating the `task` object I stored the input field rather than the value of the input field meaning every time I wanted to access a field in the task I had to add `.value`. In hindsight, altering my function which creates tasks to read in the value would be of great benefit
+
 #### Firebase
 - I tried to integrate Firebase into my project, hoping to teach myself a new technology.
 - This was quite the headache, I spent what I believe to be a collective 10 hours attempting to configure and debug Firebase - Firebase was supposed to make databases easy, right?
@@ -24,3 +27,9 @@ The project demo does not currently exist at this time; please check back later.
 ### What I Would Do Differently
 - Instead of using `.addEventListener`, I would bind the function to the class instead which lead to less "pollution" across code.
 - It actually seems I may be able to refactor this code - when integrating Firebase I just used `querySelector`after the modal was populated to add my `eventListener` and functionality to the corresponding buttons on the modal.
+
+### TODO
+- Load projects and tasks from DB to web page
+- Display loaded projects/tasks
+- Anonymous auth
+- If user is signed in, show user that they are and have a sign out button
