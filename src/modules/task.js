@@ -6,21 +6,21 @@ class Task {
         this.due = due;
         this.completed = completed;
         this.priority = priority;
-        this._taskNum = null;
+        this.taskNum = null;
     }
 
-    set taskNum(value) {
-        this._taskNum = value;
-    }
+    // set taskNum(value) {
+    //     this._taskNum = value;
+    // }
 
-    get taskNum() {
-        return this._taskNum;
-    }
+    // get taskNum() {
+    //     return this._taskNum;
+    // }
 }
 
 const makeTask = (currentProject) => {
     // Take form inputs and make new task
-    var taskName = document.querySelector("#task-name");
+    var taskName = document.querySelector("#task-name"); // im silly here; I shouldve used .value but my program is too far gone
     var taskDesc = document.querySelector("#task-desc");
     var taskDue = document.querySelector("#task-due");
     var taskPriority = document.querySelector('input[name="priority-buttons"]:checked').getAttribute("data-type");
