@@ -23,10 +23,12 @@ The project demo does not currently exist at this time; please check back later.
 - Typically this error code is associated with bad data being fed to Firebase (such as undefined values) but I could not have imagined this.
 - Perhaps, I will look back a few years and find this struggle funny - but at the current moment this was disastorous as it made no sense due to my limited knowledge of databases.
 - Debugging this issue was difficult, but persistance was key to being able to sleep soundly (Not thinking "why is this code not working" for hours past bed time).
+- Adhere more to the Single Responsibility Principle; hindisght is 2020, but I should have definitely been more concious of single responsibility. After attempting to integrate Firestore, I realized my function to display the projects relied on `querySelector` to take the data from the modals directly in the function rather than passing it in.
 
 ### What I Would Do Differently
 - Instead of using `.addEventListener`, I would bind the function to the class instead which lead to less "pollution" across code.
 - It actually seems I may be able to refactor this code - when integrating Firebase I just used `querySelector`after the modal was populated to add my `eventListener` and functionality to the corresponding buttons on the modal.
+- Next time I with my new experience, I should be more concious of Single Responsibility as I create and modify objects.
 
 ### TODO
 - Load projects and tasks from DB to web page
