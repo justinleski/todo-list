@@ -48,6 +48,6 @@ export async function signInWithEmail(userEmail, userPass) {
     .catch((error) => {
           // Alert user if issue with firebase
           alert("There was an error signing you up: "+error.message);
-    })
+    });
 }
 

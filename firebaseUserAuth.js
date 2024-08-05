@@ -1,5 +1,8 @@
 import { signInAnonymously, onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebaseConfig.js"; 
+import { loadProjectFromFirestore } from "./utilities/database/loadProject.js"
+import { projects } from "../../src/index.js";
+import { displayProj } from "./src/modules/domManipulator.js"
 
 // Detetc auth state
 onAuthStateChanged(auth, (user) => {
@@ -8,6 +11,10 @@ onAuthStateChanged(auth, (user) => {
     if(user) {
         //storeNewUser(user.uid, userEmail, userName);
         console.log("We got the usr unAuthststaeChnaged: "+user.email);
+        projects = loadProjectFromFirestore();
+        projects.forEach((project) => {
+            displayProj(project);
+        });
     } 
     else {
       // If user is not signed in, sign them in anonymously
@@ -26,6 +33,8 @@ onAuthStateChanged(auth, (user) => {
     // const { uid } = user;
     // const expensesCol = collection(db, `users/${uid}/expenses`)
 });
+
+
 
 
 //const auth = getAuth();

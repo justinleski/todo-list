@@ -23,6 +23,8 @@ const makeTask = (currentProject) => {
     var taskName = document.querySelector("#task-name"); // im silly here; I shouldve used .value but my program is too far gone
     var taskDesc = document.querySelector("#task-desc");
     var taskDue = document.querySelector("#task-due");
+    console.log("TEST RMEOVE: ", taskDue);
+    console.log("TEST RMEOVE: ", typeof taskDue);
     var taskPriority = document.querySelector('input[name="priority-buttons"]:checked').getAttribute("data-type");
     var taskComp = document.querySelector("#task-comp").checked;
     console.log(taskComp);
@@ -52,4 +54,4 @@ const removeTask = (currentProject, taskNumber) => {
    
 }
 
-export { makeTask, removeTask }
+export { makeTask, removeTask, Task }

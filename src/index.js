@@ -4,8 +4,7 @@ import { makeTask } from "./modules/task.js";
 import { signInWithEmail, signUpWithEmail } from "../utilities/authentication/signIn.js";
 import { storeUserProject } from "../utilities/database/storeProject.js";
 import { auth } from "../firebaseConfig.js"
-
-console.log("Right at start of index.js: ", auth.currentUser);
+import { loadProjectFromFirestore } from "../utilities/database/loadProject.js"
 
 // Store all projects in array
 var projects = [];
@@ -14,6 +13,32 @@ var currentProject = projects[0]; // make current project index 0 by default
 // assign button 
 var newTask = document.querySelector("#mainTaskBtn");
 var notesBtn = document.querySelector("#notes");
+
+// Firestore has no way of checking the current sign in state so just give time for it to load - i know this is rag tag
+setTimeout(() => {
+    if (auth.currentUser !== null){
+        // Attempt to load and display projects from Firestore using currentUser credentials
+        projects = loadProjectFromFirestore(auth.currentUser)
+        .then((loadedProjectsArray) => {
+            console.log("Successfully retrieved Projects");
+            projects = loadedProjectsArray;
+            console.log("projects are", projects);
+
+            for (var project in loadedProjectsArray){
+                console.log("Will it display?", project); //TODO loop does not run??!!
+                updateProjList(project); 
+            }
+
+            // loadedProjectsArray.forEach((project) => {
+            //     console.log("Will it display?", project); //TODO loop does not run??!!
+            //     updateProjList(project); 
+            // });
+        })
+        .catch(console.error("Could not load projects on initial set-up"));
+    }
+    
+}, "1000");
+
 
 // Check if user has projects
 if (projects.length <= 0) {
@@ -138,3 +163,7 @@ cancelBtn.addEventListener("click", () => {
     remOverlay();
     hideModal();
 });
+
+
+
+export { projects };

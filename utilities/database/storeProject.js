@@ -34,12 +34,13 @@ export async function storeUserProject(user, project) {
 
 async function storeTask(task, projUniqueId, projCollection) {
 
-        console.log(projUniqueId);
-        console.log(task.name.value);
-        console.log(task.desc.value);
-        console.log(task.due.value);
-        console.log(task.completed);
-        console.log(task.taskNum);
+        // console.log(projUniqueId);
+        // console.log(task.name.value);
+        // console.log(task.desc.value);
+        // console.log(task.due.value);
+        // console.log(task.completed);
+        // console.log(task.priority);
+        // console.log(task.taskNum);
 
     // Store the task under corresponding task number (convert to string in base 10)
     await setDoc(doc(projCollection, projUniqueId, "tasks", task.taskNum.toString(10)), {
@@ -48,6 +49,7 @@ async function storeTask(task, projUniqueId, projCollection) {
         desc: task.desc.value,
         due: task.due.value,
         completed: task.completed,
+        priority: task.priority,
         taskNum: task.taskNum,
     });
 }
