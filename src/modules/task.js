@@ -33,8 +33,6 @@ const makeTask = (currentProject) => {
     // Calculate index of task
     task.taskNum = currentProject.tasks.length;
 
-    console.log("makeTask ", task);
-
     return task;
 
 }

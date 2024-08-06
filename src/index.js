@@ -28,29 +28,34 @@ setTimeout(() => {
     // DUMBY we should check after projects are l0aded sicne async
     
     
-}, "1000")
+}, "1000");
 // .then(checkProjectsLength(newTask, notesBtn, currentProject))
 // .catch(console.error("Projects not displayed"));
 
-async function checkProjectsLength(newTask, notesBtn, currentProject) {
-    // Check if user has projects
+// setTimeout(checkProjectsLength(newTask, notesBtn, currentProject), "2000");
 
-    console.log("projects are", typeof projects, projects);
-    console.log("loaded porjs", loadedProjectsArray.length);
+// //setTimeout(checkProjectsLength(newTask, notesBtn, currentProject), "2000");
+// console.log("projects len ", projects.length);
 
-    if (projects.length <= 0) {
-        noProjects();
-        newTask.disabled = true;
-        notesBtn.disabled = true;
-    }
-    else {
-        currentProject = projects[0];
-        projects.forEach((project) => {
-            console.log("Will it display?", project); //TODO loop does not run??!!
-            updateProjList(project); 
-        });
-    }
-}
+// function checkProjectsLength(newTask, notesBtn, currentProject) {
+//     // Check if user has projects
+
+//     console.log("projects are", typeof projects, projects);
+//     console.log("loaded porjs", projects.length);
+
+//     if (projects.length <= 0) {
+//         noProjects();
+//         newTask.disabled = true;
+//         notesBtn.disabled = true;
+//     }
+//     else {
+//         currentProject = projects[0];
+//         projects.forEach((project) => {
+//             console.log("Will it display?", project); //TODO loop does not run??!!
+//             updateProjList(project); 
+//         });
+//     }
+// }
    
 
 newTask.addEventListener("click", () => {

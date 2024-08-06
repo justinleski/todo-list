@@ -14,7 +14,7 @@ export async function loadProjectFromFirestore(user){
         var tasks = retrieveTasksFromProject(proj.projUid, user)
         .then((loadedTasksArray) => {
             tasks = loadedTasksArray;
-            console.log("All tasks loaded to project successfully", tasks[0]);
+            //console.log("All tasks loaded to project successfully", tasks);
 
             // If tasks are retrieved, create Project object
             const newProj = createProj(proj.name, proj.notes, tasks);
@@ -23,6 +23,7 @@ export async function loadProjectFromFirestore(user){
         .catch(console.error("Tasks could not be loaded onto project"));
 
     });
+
     return projectsArray;
 }
 
@@ -34,12 +35,16 @@ async function retrieveTasksFromProject(projectUid, user) {
         const task = doc.data();
     
         //Firestore returns a string, convert back to date object to be formatted by date-fns
-        var taskDueDate = new Date(task.due);
+        //var taskDueDate = new Date(task.due);
 
         // Create new task object and store in array which will be used to create new project
-        const newTask = new Task(task.name, task.desc, taskDueDate, task.completed, task.priority);
+        const newTask = new Task(task.name, task.desc, task.due, task.completed, task.priority);
         newTask.taskNum = task.taskNum;
         tasks.push(newTask);
     });
+
+    console.log("loadProjectFromFirestore ", tasks[0].due);
+    console.log("typeof ", typeof tasks[0].due);
+
     return tasks;
 }
