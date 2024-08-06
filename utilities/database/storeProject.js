@@ -45,9 +45,9 @@ async function storeTask(task, projUniqueId, projCollection) {
     // Store the task under corresponding task number (convert to string in base 10)
     await setDoc(doc(projCollection, projUniqueId, "tasks", task.taskNum.toString(10)), {
         parentProjectUid: projUniqueId,
-        name: task.name.value,
-        desc: task.desc.value,
-        due: task.due.value,
+        name: task.name,
+        desc: task.desc,
+        due: task.due,
         completed: task.completed,
         priority: task.priority,
         taskNum: task.taskNum,

@@ -18,37 +18,40 @@ var notesBtn = document.querySelector("#notes");
 setTimeout(() => {
     if (auth.currentUser !== null){
         // Attempt to load and display projects from Firestore using currentUser credentials
-        projects = loadProjectFromFirestore(auth.currentUser)
+        loadProjectFromFirestore(auth.currentUser)
         .then((loadedProjectsArray) => {
-            console.log("Successfully retrieved Projects");
             projects = loadedProjectsArray;
-            console.log("projects are", projects);
-
-            for (var project in loadedProjectsArray){
-                console.log("Will it display?", project); //TODO loop does not run??!!
-                updateProjList(project); 
-            }
-
-            // loadedProjectsArray.forEach((project) => {
-            //     console.log("Will it display?", project); //TODO loop does not run??!!
-            //     updateProjList(project); 
-            // });
         })
         .catch(console.error("Could not load projects on initial set-up"));
     }
+
+    // DUMBY we should check after projects are l0aded sicne async
     
-}, "1000");
+    
+}, "1000")
+// .then(checkProjectsLength(newTask, notesBtn, currentProject))
+// .catch(console.error("Projects not displayed"));
 
+async function checkProjectsLength(newTask, notesBtn, currentProject) {
+    // Check if user has projects
 
-// Check if user has projects
-if (projects.length <= 0) {
-    noProjects();
-    newTask.disabled = true;
-    notesBtn.disabled = true;
+    console.log("projects are", typeof projects, projects);
+    console.log("loaded porjs", loadedProjectsArray.length);
+
+    if (projects.length <= 0) {
+        noProjects();
+        newTask.disabled = true;
+        notesBtn.disabled = true;
+    }
+    else {
+        currentProject = projects[0];
+        projects.forEach((project) => {
+            console.log("Will it display?", project); //TODO loop does not run??!!
+            updateProjList(project); 
+        });
+    }
 }
-else {
-    currentProject = projects[0];
-}
+   
 
 newTask.addEventListener("click", () => {
     addOverlay();

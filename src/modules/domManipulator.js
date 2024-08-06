@@ -329,6 +329,8 @@ const displayProj = (project) => {
 
 const displayTask = (currentProject, task) => {
 
+    console.log("Task is this stuff: ", task);
+
     // Create a task card
     const card = document.createElement("div");
     card.classList.add("taskCard");
@@ -346,10 +348,10 @@ const displayTask = (currentProject, task) => {
 
     // create text info
     const title = document.createElement("h2");
-    title.innerText = task.name.value;
+    title.innerText = task.name; 
     title.classList.add("taskTitle");
     const desc = document.createElement("p");
-    desc.innerText = task.desc.value;
+    desc.innerText = task.desc; 
     desc.classList.add("taskDesc");
     const textInfo = document.createElement("div");
     textInfo.appendChild(title);
@@ -383,8 +385,8 @@ const displayTask = (currentProject, task) => {
     });
 
     // Format date and display
-    console.log("task is due: "+task.due.value);
-    var parsedData = parseISO(task.due.value);
+    //console.log("task is due: "+task.due);
+    var parsedData = parseISO(task.due);
     const formattedData = format(parsedData, "MMM do, yyyy");
 
     var dueDate = document.createElement("p");

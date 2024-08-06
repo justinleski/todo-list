@@ -20,11 +20,9 @@ class Task {
 
 const makeTask = (currentProject) => {
     // Take form inputs and make new task
-    var taskName = document.querySelector("#task-name"); // im silly here; I shouldve used .value but my program is too far gone
-    var taskDesc = document.querySelector("#task-desc");
-    var taskDue = document.querySelector("#task-due");
-    console.log("TEST RMEOVE: ", taskDue);
-    console.log("TEST RMEOVE: ", typeof taskDue);
+    var taskName = document.querySelector("#task-name").value; 
+    var taskDesc = document.querySelector("#task-desc").value;
+    var taskDue = document.querySelector("#task-due").value;
     var taskPriority = document.querySelector('input[name="priority-buttons"]:checked').getAttribute("data-type");
     var taskComp = document.querySelector("#task-comp").checked;
     console.log(taskComp);
@@ -34,6 +32,8 @@ const makeTask = (currentProject) => {
 
     // Calculate index of task
     task.taskNum = currentProject.tasks.length;
+
+    console.log("makeTask ", task);
 
     return task;
 
