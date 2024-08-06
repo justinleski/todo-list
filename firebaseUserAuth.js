@@ -13,7 +13,7 @@ onAuthStateChanged(auth, (user) => {
         console.log("We got the usr unAuthststaeChnaged: "+user.email);
         projects = loadProjectFromFirestore();
         projects.forEach((project) => {
-            displayProj(project);
+            updateProjList(project);
         });
     } 
     else {

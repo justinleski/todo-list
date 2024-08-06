@@ -16,17 +16,29 @@ var notesBtn = document.querySelector("#notes");
 
 // Firestore has no way of checking the current sign in state so just give time for it to load - i know this is rag tag
 setTimeout(() => {
+  
     if (auth.currentUser !== null){
         // Attempt to load and display projects from Firestore using currentUser credentials
         loadProjectFromFirestore(auth.currentUser)
         .then((loadedProjectsArray) => {
             projects = loadedProjectsArray;
+
+            if (projects.length <= 0) { //
+                noProjects();
+                newTask.disabled = true;
+                notesBtn.disabled = true;
+            }
+            else {
+                currentProject = projects[0];
+                updateProjList(projects);
+                // Make projList clickable
+                var h3s = document.querySelectorAll("#projList .projSpan h3");
+                addClickToProjList(h3s);
+                displayProj(currentProject);
+            }
         })
         .catch(console.error("Could not load projects on initial set-up"));
     }
-
-    // DUMBY we should check after projects are l0aded sicne async
-    
     
 }, "1000");
 // .then(checkProjectsLength(newTask, notesBtn, currentProject))
@@ -119,6 +131,16 @@ document.querySelector("#signInBtn").addEventListener("click", (e) => {
     });
 });
 
+function addClickToProjList(headers) {
+    for (const headerLink of headers) { // make sure headerLink is const - var will chnage to most recent only
+        headerLink.addEventListener("click", () => {
+            // The current project will be based off of the data attribute on the header displayed on the DOM
+            
+            currentProject = projects[headerLink.getAttribute("data-project-number")];
+            displayProj(currentProject);
+        });
+    }
+}
 
 var newProj = document.querySelector("#newProjBtn");
 newProj.addEventListener("click", () => {
@@ -137,18 +159,16 @@ newProj.addEventListener("click", () => {
 
         //
         var h3s = document.querySelectorAll("#projList .projSpan h3");
+        addClickToProjList(h3s);
 
-        for (const headerLink of h3s) { // make sure headerLink is const - var will chnage to most recent only
-            headerLink.addEventListener("click", () => {
-                // The current project will be based off of the data attribute on the header displayed on the DOM
+        // for (const headerLink of h3s) { // make sure headerLink is const - var will chnage to most recent only
+        //     headerLink.addEventListener("click", () => {
+        //         // The current project will be based off of the data attribute on the header displayed on the DOM
                 
-                currentProject = projects[headerLink.getAttribute("data-project-number")];
-                displayProj(currentProject);
-            });
-        }
-
-        // Store project to firebase - auth.currentUser is imported from fireBaseConfig.js
-        //storeUserProject(auth.currentUser, currentProject);
+        //         currentProject = projects[headerLink.getAttribute("data-project-number")];
+        //         displayProj(currentProject);
+        //     });
+        // }
 
         // Set the current project and display it
         displayProj(currentProject);

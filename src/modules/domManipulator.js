@@ -289,6 +289,8 @@ const updateProjList = (projects) => {
     clearContent(list);
 
     // `projects` is an array containing the list of project objects
+    console.log("projects in domMan, updateProjList: ",projects);
+    console.log("typeof ", typeof projects);
     projects.forEach((project, index) => {
         const projSpan = document.createElement("div");
         projSpan.classList.add("projSpan");
@@ -328,8 +330,6 @@ const displayProj = (project) => {
 }
 
 const displayTask = (currentProject, task) => {
-
-    console.log("Task is this stuff: ", task);
 
     // Create a task card
     const card = document.createElement("div");
