@@ -1,7 +1,7 @@
 import { collection, getDocs} from "firebase/firestore";
 import { db } from "../../firebaseConfig.js";
 import { Task } from "../../src/modules/task.js";
-import { createProj } from "../../src/modules/projects.js";
+import { loadProj } from "../../src/modules/projects.js";
 
 
 // Query all projects from Firebase and retrieve their relevant tasks; then put both tasks and projects into respective objects
@@ -18,7 +18,7 @@ export async function loadProjectFromFirestore(user){
         try {
             const loadedTasksArray = await retrieveTasksFromProject(proj.projUid, user);
             // If tasks are retrieved, create Project object
-            const newProj = createProj(proj.name, proj.notes, loadedTasksArray); 
+            const newProj = loadProj(proj.name, proj.notes, loadedTasksArray, proj.projUid); 
             projectsArray.push(newProj);
         } catch {
             console.error("Tasks could not be loaded onto project");

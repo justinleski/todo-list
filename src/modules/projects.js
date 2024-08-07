@@ -13,6 +13,11 @@ const removeProj = (index, projects) => {
     // Keep in mind you do not have to renumber data attributes as program reloads all projects on refresh
 }
 
+const loadProj = (name, notes, tasks, uid) => {
+    var proj = new Project(name, notes, tasks, uid);
+    return proj;
+}
+
 const createProj = (name, notes, tasks) => {
     // Generate unqiue project id
     const projUniqueId = generateUniqueId();
@@ -20,6 +25,7 @@ const createProj = (name, notes, tasks) => {
     var proj = new Project(name, notes, tasks, projUniqueId);
     return proj;
 }
+
 const addTaskToProj = (task, proj) => {
     proj.tasks.push(task);
     return proj;
@@ -34,4 +40,4 @@ function generateUniqueId() {
 }
 
 
-export { createProj, addTaskToProj, removeProj };
+export { createProj, addTaskToProj, removeProj, loadProj };

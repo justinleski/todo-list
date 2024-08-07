@@ -6,6 +6,8 @@ export async function deleteProjectFromFirestore(projIndex, projects, user){
     // Find the project from project array to associate and delete data
     const projectToDelete = projects[projIndex];
     console.log("projectoDelete in dleeteProject, ", projectToDelete);
+    console.log("Project index is: ", projIndex);
+    console.log(projects);
     const projCollection = collection(db, "users", user.uid, "projects");
 
     // First, delete tasks subcollection from Firestore

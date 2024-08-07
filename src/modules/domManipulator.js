@@ -304,9 +304,9 @@ const updateProjList = (projects) => {
         deleteBtn.innerHTML = "&times;";
         // Not best practice; this allows the x button beside the project name to delete the project
         deleteBtn.addEventListener("click", () => {
+            deleteProjectFromFirestore(index, projects, auth.currentUser);
             deleteBtn.parentElement.remove();
             removeProj(index, projects);
-            deleteProjectFromFirestore(index, projects, auth.currentUser);
         });
 
         projSpan.appendChild(name);
