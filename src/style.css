@@ -164,7 +164,7 @@ header {
     align-items: center;
 }
 
-#modal h3 {
+#modal h3, #modal h2, #modal p {
     font-family: var(--secondary-font);
 }
 

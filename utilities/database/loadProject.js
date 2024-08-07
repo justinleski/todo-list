@@ -11,22 +11,6 @@ export async function loadProjectFromFirestore(user){
     const userProjectsRef = collection(db, "users", user.uid, "projects");
     const querySnapshot = await getDocs(userProjectsRef);
 
-    // querySnapshot.forEach((doc) => {
-    //     // Convert Firestore data to Project object
-    //     const proj = doc.data();
-    //     var tasks = retrieveTasksFromProject(proj.projUid, user)
-    //     .then((loadedTasksArray) => {
-    //         tasks = loadedTasksArray;
-    //         //console.log("All tasks loaded to project successfully", tasks);
-
-    //         // If tasks are retrieved, create Project object
-    //         const newProj = createProj(proj.name, proj.notes, tasks);
-    //         projectsArray.push(newProj);
-    //     })
-    //     .catch(console.error("Tasks could not be loaded onto project"));
-
-    // });
-
     for (let i = 0; i < querySnapshot.size; i++){
         const docSnap = querySnapshot.docs[i];
         const proj = docSnap.data();
@@ -34,7 +18,7 @@ export async function loadProjectFromFirestore(user){
         try {
             const loadedTasksArray = await retrieveTasksFromProject(proj.projUid, user);
             // If tasks are retrieved, create Project object
-            const newProj = createProj(proj.name, proj.notes, loadedTasksArray);
+            const newProj = createProj(proj.name, proj.notes, loadedTasksArray); 
             projectsArray.push(newProj);
         } catch {
             console.error("Tasks could not be loaded onto project");

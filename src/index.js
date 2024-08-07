@@ -1,5 +1,7 @@
 import { createProj, addTaskToProj } from "./modules/projects.js";
-import { hideModal, updateProjList, displayProj, addOverlay, remOverlay, displayTask, activateModal, makeTaskModal, makeProjModal, makeNotesModal, noProjects, makeSignInModal, makeSignUpModal } from "./modules/domManipulator.js";
+import { hideModal, updateProjList, displayProj, addOverlay, remOverlay, 
+    displayTask, activateModal, makeTaskModal, makeProjModal, makeNotesModal, 
+    noProjects, makeSignInModal, makeSignUpModal, welcomeUser } from "./modules/domManipulator.js";
 import { makeTask } from "./modules/task.js";
 import { signInWithEmail, signUpWithEmail } from "../utilities/authentication/signIn.js";
 import { storeUserProject } from "../utilities/database/storeProject.js";
@@ -18,6 +20,10 @@ var notesBtn = document.querySelector("#notes");
 setTimeout(() => {
   
     if (auth.currentUser !== null){
+
+        // // Change button to indicate user is logged in
+        // welcomeUser(auth.currentUser.name);
+
         // Attempt to load and display projects from Firestore using currentUser credentials
         loadProjectFromFirestore(auth.currentUser)
         .then((loadedProjectsArray) => {
@@ -41,39 +47,14 @@ setTimeout(() => {
     }
     
 }, "1000");
-// .then(checkProjectsLength(newTask, notesBtn, currentProject))
-// .catch(console.error("Projects not displayed"));
-
-// setTimeout(checkProjectsLength(newTask, notesBtn, currentProject), "2000");
-
-// //setTimeout(checkProjectsLength(newTask, notesBtn, currentProject), "2000");
-// console.log("projects len ", projects.length);
-
-// function checkProjectsLength(newTask, notesBtn, currentProject) {
-//     // Check if user has projects
-
-//     console.log("projects are", typeof projects, projects);
-//     console.log("loaded porjs", projects.length);
-
-//     if (projects.length <= 0) {
-//         noProjects();
-//         newTask.disabled = true;
-//         notesBtn.disabled = true;
-//     }
-//     else {
-//         currentProject = projects[0];
-//         projects.forEach((project) => {
-//             console.log("Will it display?", project); //TODO loop does not run??!!
-//             updateProjList(project); 
-//         });
-//     }
-// }
-   
 
 newTask.addEventListener("click", () => {
     addOverlay();
     makeTaskModal(); // add event listener to button here to make it prevent default
     activateModal();
+
+    // Change button to indicate user is logged in
+    welcomeUser(auth.currentUser.getDisplayName);
 
     document.querySelector("#taskAddBtn").addEventListener("click", function(e) {
         e.preventDefault();
@@ -85,8 +66,8 @@ newTask.addEventListener("click", () => {
 
         // After object is updated, overwrite and store it to Firestore
         if (auth.currentUser !== null){
-            console.log("current user is: ", auth.currentUser); // TODO WE ENED CURRENT SUERRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
-            storeUserProject(auth.currentUser, currentProject);
+            console.log("current user is: ", auth.currentUser); 
+            storeUserProject(auth.currentUser, currentProject); // TODO; do not store a new project, at least not as new one. just update the db's current task, thats it
         }
         
 
@@ -161,14 +142,8 @@ newProj.addEventListener("click", () => {
         var h3s = document.querySelectorAll("#projList .projSpan h3");
         addClickToProjList(h3s);
 
-        // for (const headerLink of h3s) { // make sure headerLink is const - var will chnage to most recent only
-        //     headerLink.addEventListener("click", () => {
-        //         // The current project will be based off of the data attribute on the header displayed on the DOM
-                
-        //         currentProject = projects[headerLink.getAttribute("data-project-number")];
-        //         displayProj(currentProject);
-        //     });
-        // }
+        // Add functionality to delete button
+        
 
         // Set the current project and display it
         displayProj(currentProject);

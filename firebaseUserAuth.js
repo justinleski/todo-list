@@ -7,6 +7,8 @@ import { displayProj } from "./src/modules/domManipulator.js"
 // Detetc auth state
 onAuthStateChanged(auth, (user) => {
 
+    console.log("unAuthStateCHnaged ",user);
+
     // Check if user not signed in
     if(user) {
         //storeNewUser(user.uid, userEmail, userName);
@@ -27,7 +29,7 @@ onAuthStateChanged(auth, (user) => {
           const errorCode = error.code;
           const errorMessage = error.message;
     // ...
-});
+    });
     }
 
     // const { uid } = user;
