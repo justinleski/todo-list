@@ -6,8 +6,6 @@ import { db } from "../../firebaseConfig.js";
 
 export const checkTask = async(projCollection, projUid, taskIndex, compState) => {
 
-    console.log("comp state", compState);
-
     // Get reference to the task document to update:
     const newReference = collection(projCollection, projUid, "tasks");
     const taskRef = doc(newReference,  taskIndex.toString(10));
@@ -17,13 +15,13 @@ export const checkTask = async(projCollection, projUid, taskIndex, compState) =>
     });
 }
 
-export const updateNotes = async(newString) => {
+export const updateNotes = async(projCollection, currentProject) => {
 
     // Get reference to the task document to update:
-    const task = doc();
+    const proj = doc(projCollection, currentProject.uid);
 
-    await updateDoc(notes, {
-        notes: newString
+    await updateDoc(proj, {
+        notes: currentProject.notes
     });
 
 }

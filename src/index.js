@@ -66,7 +66,6 @@ newTask.addEventListener("click", () => {
 
         // After object is updated, overwrite and store it to Firestore
         if (auth.currentUser !== null){
-            console.log("current user is: ", auth.currentUser); 
             storeUserProject(auth.currentUser, currentProject); // TODO; do not store a new project, at least not as new one. just update the db's current task, thats it
         }
         
@@ -138,12 +137,9 @@ newProj.addEventListener("click", () => {
         projects.push(currentProject);
         updateProjList(projects); 
 
-        //
+        // Make project name load proj
         var h3s = document.querySelectorAll("#projList .projSpan h3");
         addClickToProjList(h3s);
-
-        // Add functionality to delete button
-        
 
         // Set the current project and display it
         displayProj(currentProject);
@@ -166,7 +162,5 @@ cancelBtn.addEventListener("click", () => {
     remOverlay();
     hideModal();
 });
-
-
 
 export { projects };

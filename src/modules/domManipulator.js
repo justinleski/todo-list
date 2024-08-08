@@ -5,7 +5,7 @@ import { format, parseISO } from "date-fns";
 import { auth, db } from "../../firebaseConfig.js"
 import { collection } from "firebase/firestore";
 import { deleteProjectFromFirestore, deleteTaskFromFirestore } from "../../utilities/database/deleteProject.js";
-import { checkTask } from "../../utilities/database/updateUserActions.js";
+import { checkTask, updateNotes } from "../../utilities/database/updateUserActions.js";
 
 const activateModal = () => {
     const modal = document.querySelector("#modal");
@@ -248,7 +248,7 @@ const makeProjModal = () => {
 const makeNotesModal = (currentProject) => {
     const modal = document.querySelector("#modal");
     clearContent(modal);
-    modal.appendChild(createCancel());
+    modal.appendChild(createCancelForNotes(currentProject)); 
 
     const title = document.createElement("h3");
     title.innerText = "Notes";
@@ -263,6 +263,9 @@ const makeNotesModal = (currentProject) => {
         currentProject.notes = textField.value;
     });
 
+    // Make exit button store notes since we do not want to update by character
+
+
     modal.appendChild(title);
     modal.appendChild(textField);
 }
@@ -275,6 +278,14 @@ const createCancel = () => {
         remOverlay();
         hideModal();
     });
+    return cancelBtn;
+}
+
+const createCancelForNotes = (currentProject) => {
+    const projCollection = collection(db, "users", auth.currentUser.uid, "projects");
+    var cancelBtn = createCancel();
+    cancelBtn.addEventListener("click", () => { // I'm not sure why but anonymous functions stops propogation??
+        updateNotes(projCollection, currentProject)});
     return cancelBtn;
 }
 
@@ -293,8 +304,6 @@ const updateProjList = (projects) => {
     clearContent(list);
 
     // `projects` is an array containing the list of project objects
-    console.log("projects in domMan, updateProjList: ",projects);
-    console.log("typeof ", typeof projects);
     projects.forEach((project, index) => {
         const projSpan = document.createElement("div");
         projSpan.classList.add("projSpan");
