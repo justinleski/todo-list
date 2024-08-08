@@ -1,5 +1,5 @@
 import { db } from "../../firebaseConfig.js";
-import { doc, deleteDoc, collection, updateDoc, query, where, getDocs, increment, getDoc } from "firebase/firestore";
+import { doc, deleteDoc, collection, updateDoc, query, where, getDocs, increment } from "firebase/firestore";
 
 export async function deleteProjectFromFirestore(projIndex, projects, user){
 
@@ -24,7 +24,7 @@ export async function deleteTaskFromFirestore(projCollection, projUid, taskNum){
 
     // Not recommended to delete collection/subcollections on web clients, will just remvoe all tasks then the
     // project so no reference to old tasks folder can be made;
-    const newReference = collection(projCollection, projUid, "tasks")
+    const newReference = collection(projCollection, projUid, "tasks");
     const q = query(newReference, where("taskNum", ">", parseInt(taskNum))); 
     const querySnapshot = await getDocs(q);
 
@@ -49,9 +49,6 @@ export async function deleteTaskFromFirestore(projCollection, projUid, taskNum){
 async function deIncrementNum(taskIndex, newReference) {
 
     const docRef = doc(newReference,  taskIndex.toString(10));
-    //var newTask = await getDocs(docRef);
-
-    //console.log("fuck", newTask.data());
 
     await updateDoc(docRef, {
         taskNum: increment(-1)

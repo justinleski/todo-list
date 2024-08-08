@@ -5,6 +5,7 @@ import { format, parseISO } from "date-fns";
 import { auth, db } from "../../firebaseConfig.js"
 import { collection } from "firebase/firestore";
 import { deleteProjectFromFirestore, deleteTaskFromFirestore } from "../../utilities/database/deleteProject.js";
+import { checkTask } from "../../utilities/database/updateUserActions.js";
 
 const activateModal = () => {
     const modal = document.querySelector("#modal");
@@ -372,7 +373,9 @@ const displayTask = (currentProject, task) => {
         task.completed = read.checked;
         isStriked(task, desc);
         // Store change in Firestore
-        
+        const projCollection = collection(db, "users", auth.currentUser.uid, "projects");
+        const taskIndex = read.parentElement.parentElement.getAttribute("data-task-number");
+        checkTask(projCollection, currentProject.uid, taskIndex, read.checked);
     });
 
     const deleteBtn = document.createElement("button");

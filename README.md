@@ -24,6 +24,7 @@ The project demo does not currently exist at this time; please check back later.
 - Perhaps, I will look back a few years and find this struggle funny - but at the current moment this was disastorous as it made no sense due to my limited knowledge of databases.
 - Debugging this issue was difficult, but persistance was key to being able to sleep soundly (Not thinking "why is this code not working" for hours past bed time).
 - Adhere more to the Single Responsibility Principle; hindisght is 2020, but I should have definitely been more concious of single responsibility. After attempting to integrate Firestore, I realized my function to display the projects relied on `querySelector` to take the data from the modals directly in the function rather than passing it in.
+- A document reference is diffrent than a collection; in retrospect this sounds self-explanatory, but the confusion lies in the fact thatg I could use a collection followed by an ID on `doc` to reference a specific document. However, what I initially did was simply create a collection whose path goes to the specific document. It took longer than I would like to admite, but slowing down and reading the error message helped tremendously.
 
 ### What I Would Do Differently
 - Instead of using `.addEventListener`, I would bind the function to the class instead which lead to less "pollution" across code.
