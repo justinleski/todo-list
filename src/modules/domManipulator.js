@@ -2,8 +2,9 @@ import "../style.css";
 import { removeProj } from "./projects";
 import { removeTask } from "./task.js"
 import { format, parseISO } from "date-fns";
-import { auth } from "../../firebaseConfig.js"
-import { deleteProjectFromFirestore } from "../../utilities/database/deleteProject.js";
+import { auth, db } from "../../firebaseConfig.js"
+import { collection } from "firebase/firestore";
+import { deleteProjectFromFirestore, deleteTaskFromFirestore } from "../../utilities/database/deleteProject.js";
 
 const activateModal = () => {
     const modal = document.querySelector("#modal");
@@ -377,6 +378,11 @@ const displayTask = (currentProject, task) => {
     deleteBtn.classList.add("svgBtn");
     deleteBtn.addEventListener("click", () => {
         const taskIndex = deleteBtn.parentElement.parentElement.getAttribute("data-task-number");
+
+        // Not best practice but we dont have the most modular code
+        const projCollection = collection(db, "users", auth.currentUser.uid, "projects");
+        deleteTaskFromFirestore(projCollection, currentProject.uid, taskIndex);
+
         removeTask(currentProject, taskIndex); 
         deleteBtn.parentElement.parentElement.remove(); 
         // We need to update the data-task live somehow

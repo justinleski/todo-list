@@ -20,8 +20,6 @@ export async function storeUserProject(user, project) {
             storeTask(task, projUniqueId, projCollection);
         }
 
-       
-
     } catch (error) {
         console.error("Error storing the data: "+error);
         throw new Error("Failed to store item");
