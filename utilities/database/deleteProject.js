@@ -1,5 +1,5 @@
 import { db } from "../../firebaseConfig.js";
-import { doc, deleteDoc, collection, updateDoc, query, where, getDocs, increment } from "firebase/firestore";
+import { doc, deleteDoc, collection, updateDoc, query, where, getDocs, increment, getDoc } from "firebase/firestore";
 
 export async function deleteProjectFromFirestore(projIndex, projects, user){
 
@@ -48,10 +48,12 @@ export async function deleteTaskFromFirestore(projCollection, projUid, taskNum){
 
 async function deIncrementNum(taskIndex, newReference) {
 
-    const taskRef = collection(newReference, taskIndex);
-    var allTasks = await getDocs(taskRef);
+    const docRef = doc(newReference,  taskIndex.toString(10));
+    //var newTask = await getDocs(docRef);
 
-    await updateDoc(allTasks, {
+    //console.log("fuck", newTask.data());
+
+    await updateDoc(docRef, {
         taskNum: increment(-1)
     });
 }
